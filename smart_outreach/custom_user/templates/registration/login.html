@@ -1,0 +1,83 @@
+{% load tailwind_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <title>Signin -Smartoutreach</title>
+    {% tailwind_css %}
+
+</head>
+
+<body class="bg-[#F0EEF7] flex justify-center items-center">
+    <!-- h-[91.1vh] -->
+    <!-- w-[37.1vw] -->
+    <!-- shadow-[0px 40.9451px 81.8901px -15.3544px rgba(85, 105, 135, 0.08)]  -->
+    <div class="bg-white px-[54px] w-[570px] rounded-2xl min-h-min flex-col mt-[13.2vh] ">
+        <div class="flex items-center justify-center -mt-12">
+            <img class="h-[10.6vh] w-[5.6vw]" src="{% static '/images/smart_outreach.svg' %}" alt="Smartoutreach.net">
+        </div>
+        <!-- text-[2.3vw] -->
+        <!-- text-[2.375rem] -->
+        <div class="font-bold text-4xl mb-6 mt-[4.15vh] text-[#2A3342] flex items-center justify-center">
+            Sign in to your account
+        </div>
+        <div>
+            <!-- text-[1.25rem] -->
+            <div class="font-medium ">
+                <label for="email">Email</label>
+            </div>
+            <div>
+                <input id="email" class="flex border-2 rounded-lg gap-[10px] py-3 px-[18px] w-[458px] " type="text"
+                    placeholder="Enter your email">
+            </div>
+        </div>
+        <div>
+            <div class="mt-2 leading-9 font-medium ">
+                <label for="password">Password</label>
+            </div>
+            <div>
+                <input id="password" class="flex border-2 rounded-lg gap-[10px] py-3 px-[18px] w-[458px] " type="text"
+                    placeholder="Enter your password">
+            </div>
+        </div>
+        <!-- text-[0.938rem] -->
+        <div class=" flex justify-between  mt-8 mb-6  font-medium">
+            <div>
+                <input type="checkbox" name="Remember_me" id="r_me" class="mt-1">
+                <label for="r_me">Remember me</label>
+
+            </div>
+            <div>
+                <a href="#" class="decoration-none">Forgot your password?</a>
+
+            </div>
+
+        </div>
+        <div
+            class=" mt-2 flex justify-center items-center text-white bg-[#2B2358] mx-auto border-2 rounded-lg py-3 px-6 gap-2 ">
+            <a href="#"> Sign In </a>
+
+        </div>
+        <!-- text-[1.25rem] -->
+        <div class=" mt-8 mb-[9vh] flex justify-center items-center text-xl font-medium">
+            <div>
+                <a href="#" class="decoration-none">Don't have an account? </a>
+            </div>
+            <div class="ml-1">
+                <a href="#">Sign up</a>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
