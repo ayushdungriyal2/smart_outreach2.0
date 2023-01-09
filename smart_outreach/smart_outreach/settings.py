@@ -40,11 +40,15 @@ INSTALLED_APPS = [
     # ====================================
     "tailwind",
     "theme",
+    "django_browser_reload",
     "dashboard",
     "custom_user",
+    "automation",
 ]
 
 MIDDLEWARE = [
+    # taildwin css 
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -148,3 +152,19 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 STATIC_URL = "static/"
 
+# celery settring 
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proj.settings')
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TIMEZONE = 'Asia/Kolkata'
+
+# login lougout redirect 
+
+LOGIN_REDIRECT_URL = '/dashboard'
+LOGOUT_REDIRECT_URL = '/sign-in'

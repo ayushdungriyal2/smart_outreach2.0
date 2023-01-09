@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Automation - Add Domain From Cloudfare To Zoho{% endblock title %}
+
+
+{% block content %}
+
+
+
+<body class="bg-white flex-col justify-center items-center">
+    <!-- main content  -->
+    <div class="mt-28 flex justify-start border-2 w-10/12 mx-auto py-[4.3rem] px-14 mb-24 rounded-xl">
+
+        <!-- left -->
+        <div class="tab">
+            <div>
+                <button class="tablinks flex justify-start pl-6 py-3 w-44 text-xl font-medium rounded-lg mr-20 mb-1" type="submit"
+                    id="defaultOpen" onclick="openCity(event, 'Profile')">Profile</button>
+            </div>
+            <div>
+                <button class="tablinks flex justify-start pl-6  py-3 w-44 text-xl font-medium rounded-lg mb-1 mr-20" type="submit"
+                    onclick="openCity(event, 'Cloudfare')">Cloudfare</button>
+            </div>
+            <div>
+                <button class="tablinks  flex justify-start pl-6 py-3 w-44 text-xl font-medium rounded-lg mb-1 mr-20" type="submit"
+                    onclick="openCity(event, 'Zoho')">Zoho</button>
+            </div>
+            <div>
+                <button class="tablinks flex justify-start pl-6  py-3 w-44 text-xl font-medium rounded-lg mb-1 mr-20" type="submit"
+                    onclick="openCity(event, 'SmartLead')">SmartLead</button>
+            </div>
+        </div>
+        <!-- vertical rule -->
+        <div class="bg-[#4F4589] min-h-min w-0.5 mr-20">
+
+        </div>
+        <!-- right -->
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+                <!-- for save button and profile alignment -->
+
+                <div>
+                    <!-- profile  -->
+                    <div id="Profile" class="tabcontent">
+                        <div class="text-[#4F4589] text-3xl font-semibold ">
+                            Profile
+                        </div>
+                        <div class="w-80 bg-[#4F4589] h-0.5 mb-5 ">
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp1">Name</label>
+                            </div>
+                            <div>
+                                {{form.name}}
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp2">Email</label>
+                            </div>
+                            <div>
+                                {{form.email}}
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp3">Phone Number</label>
+                            </div>
+                            <div>
+                                {{form.phone}}
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp4">Company Name</label>
+                            </div>
+                            <div>
+                                {{form.company_name}} </div>
+                        </div>
+                    </div>
+                    <!-- Cloudfare -->
+                    <div id="Cloudfare" class="tabcontent hidden">
+                        <div class="text-[#4F4589] text-3xl font-semibold ">
+                            Cloudfare
+                        </div>
+                        <div class="w-80 bg-[#4F4589] h-0.5 mb-5 ">
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp5">Email</label>
+                            </div>
+                            <div>
+                                {{form.cloudfare_email}}
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp6">Cloudfare OAuth Token</label>
+                            </div>
+                            <div>
+                                {{form.cloudfare_auth_code}}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zoho  -->
+                    <div id="Zoho" class="tabcontent hidden">
+                        <div class="text-[#4F4589] text-3xl font-semibold ">
+                            Zoho
+                        </div>
+                        <div class="w-80 bg-[#4F4589] h-0.5 mb-5 ">
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp7">refresh_token</label>
+                            </div>
+                            <div>
+                                {{form.refresh_token}}
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp8">zoho_domain</label>
+                            </div>
+                            <div>
+                                {{form.zoho_domain}}
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp8">client_id</label>
+                            </div>
+                            <div>
+                                {{form.client_id}}
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp8">client_secret</label>
+                            </div>
+                            <div>
+                                {{form.client_secret}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- smartlead  -->
+                    <div id="SmartLead" class="tabcontent hidden">
+                        <div class="text-[#4F4589] text-3xl font-semibold ">
+                            SmartLead
+                        </div>
+                        <div class="w-80 bg-[#4F4589] h-0.5 mb-5 ">
+                        </div>
+                        <div class="mb-5">
+                            <div>
+                                <label class="text-xl font-semibold mb-4" for="inp9">Smartlead API Key</label>
+                            </div>
+                            <div>
+                                {{form.smart_lead_api_key}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- save button -->
+                <div class="mt-10">
+                    <button class="w-[35rem] py-1 rounded-md bg-[#2B2358] text-white text-lg font-medium "
+                        type="submit">Save changes?</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+</body>
+
+<script>
+    function openCity(evt, cityName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" border-2", "");
+            tablinks[i].className = tablinks[i].className.replace(" bg-[#2B2358]", "");
+            tablinks[i].className = tablinks[i].className.replace(" text-white", "");
+        }
+
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(cityName).style.display = "initial";
+        evt.currentTarget.className += " bg-[#2B2358]";
+        evt.currentTarget.className += " text-white";
+    }
+    document.getElementById("defaultOpen").click();
+</script>
+
+{% endblock content %}

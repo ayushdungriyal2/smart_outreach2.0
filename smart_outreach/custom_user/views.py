@@ -7,16 +7,11 @@ from django.contrib.auth.models import User
 from .models import CustomUser
 
 
-
-# Create your views here.
-
-
-
 def sign_up(request):
     if request.method == 'POST':
+        name = request.POST.get("name")
         email = request.POST.get("email")
         password = request.POST.get("password")
-        name = request.POST.get("name")
         company_name = request.POST.get("company_name")
         user = CustomUser.objects.create_user(email, password)
 
@@ -32,12 +27,7 @@ def sign_up(request):
     else:
         form = RegisterForm()
 
-    return render(request, 'registration/sign_up.html', {"form": form})
-
-
-
-def logout_view(request):
-    logout(request)
+    return render(request, 'registration/sign-up.html', {"form": form})
 
 
 def sign_in(request):
@@ -45,18 +35,22 @@ def sign_in(request):
     if request.method == 'POST':
         email = request.POST.get("email")
         password = request.POST.get("password")
-        user = CustomUser.objects.get(email = email)
-        if user.check_password(password):
+        user=authenticate(email=email,password=password)
+        if user is not None:
             login(request, user)
-        # user = authenticate(request, username=username, password=password)
-        
-        if user is not None:    
-            login(request, user)
-            return redirect('/home')
-    else:
-        form = LoginForm()
+            return redirect('/dashboard')
 
-    return render(request, 'registration/login.html', {"form": form})
+        else:
+            context = {'error':'Incorrent email or password'}
+            return render(request, 'registration/login.html', context=context)
+            
+            
+    else:
+        
+        return render(request, 'registration/login.html')
+    
+
+
 
 
 def profile(request):
@@ -86,7 +80,7 @@ def profile(request):
         user.cloudfare_email = cloudfare_email
         user.cloudfare_auth_code = cloudfare_auth_code
         user.save()
-        return redirect('home')
+        return redirect('dashboard')
 
         # form = UserForm(data=request.POST, instance=request.user)
 

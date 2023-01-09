@@ -21,7 +21,14 @@ class EditUserProfileForm(UserChangeForm):
     
     class Meta:
         model = CustomUser
-        fields = ['name','email','phone','refresh_token','zoho_domain','client_id','client_secret','cloudfare_email','cloudfare_auth_code',]
+        fields = ['name','email','phone','company_name','refresh_token','zoho_domain','client_id','client_secret','cloudfare_email','cloudfare_auth_code','smart_lead_api_key']
+
+    def __init__(self, *args, **kwargs):
+        super(EditUserProfileForm, self).__init__(*args, **kwargs)
+
+        # you can iterate all fields here
+        for fname, f in self.fields.items():
+            f.widget.attrs['class'] = 'border-[#2B2358] text-[#2B2358] border-2 mt-2 rounded-md w-[35rem] py-1.5 pl-6 font-medium text-base'    
     
 
 

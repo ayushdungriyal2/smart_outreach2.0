@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Automation - Add Domain From Cloudfare To Zoho{% endblock title %}
+
+
+{% block content %}
+
+
+<body class=" bg-white flex-col justify-center items-center">
+
+    <div class=" w-11/12 mx-auto">
+        <div class=" mx-[4.88vw] mt-10 mb-11">
+
+            <div class="text-[#4F4589] text-3xl font-semibold ">
+                Dashboard
+            </div>
+            <div class="w-40 bg-[#4F4589] h-0.5 mb-5 ">
+            </div>
+        </div>
+
+        <!-- Automation 1 -->
+        <a href="/add-domain-to-zoho-from-cloudfare">
+
+
+            <div
+                class=" hover:border-[#4F4589] hover:scale-[100.5%] ease-in duration-150 cursor-pointer flex pl-16 items-center mb-16 mx-[4.88vw] border-2 rounded-md px-12 ">
+
+
+                <div class=" flex items-center">
+                    <div>
+                        <img class="mr-20" src="{% static '/images/zoho_cloudfare_img.png' %}" alt="">
+                    </div>
+                    <div>
+                        <img class="mr-20 my-14" src="{% static '/images/connection1.svg' %}" alt="">
+                    </div>
+                </div>
+
+
+                <div class="w-3/5">
+                    <div class="text-3xl font-bold mb-4">
+                        Add Domains in Zoho from Cloudflare
+                    </div>
+                    <div class=" text-sm font-medium">
+                        Automatically fetch all domains present in Cloudflare and bulk add them to Zoho with DNS
+                        configuration done for sending emails.
+                    </div>
+                </div>
+
+            </div>
+
+
+        </a>
+
+        <!-- Automation 2-->
+        <a href="/create_bulk_users_in_zoho">
+
+
+            <div
+                class=" hover:border-[#4F4589] hover:scale-[100.5%] ease-in duration-150 cursor-pointer flex pl-16 items-center mb-16 mx-[4.88vw] border-2 rounded-md px-12 ">
+
+
+                <div class=" flex items-center">
+                    <div>
+                        <img class="mr-20" src="{% static '/images/zoho_img.png' %}" alt="">
+                    </div>
+                    <div>
+                        <img class="mr-20 my-14" src="{% static '/images/connection2.svg' %}" alt="">
+                    </div>
+                </div>
+
+
+                <div class="w-3/5">
+                    <div class="text-3xl font-bold mb-4">
+                        Create Bulk Users in Zoho:
+                    </div>
+                    <div class=" text-sm font-medium">
+                        Automatically fetch all domains added to Zoho and configured for sending email, then gives
+                        you the option to create users on multiple domains.
+                    </div>
+                </div>
+
+            </div>
+
+
+        </a>
+
+        <!-- Automation 3-->
+        <a href="/create_bulk_users_in_zoho_smartlead">
+
+
+            <div
+                class=" hover:border-[#4F4589] hover:scale-[100.5%] ease-in duration-150 cursor-pointer flex pl-16 items-center mb-16 mx-[4.88vw] border-2 rounded-md px-12 ">
+
+
+                <div class=" flex items-center">
+                    <div>
+                        <img class="mr-20" src="{% static '/images/smart_lead.png' %}" alt="">
+                    </div>
+                    <div>
+                        <img class="mr-20 my-14" src="{% static '/images/connection3.svg' %}" alt="">
+                    </div>
+                </div>
+
+
+                <div class="w-3/5">
+                    <div class="text-3xl font-bold mb-4">
+                        Add Domains in Zoho available in Cloudflare:
+                    </div>
+                    <div class=" text-sm font-medium">
+                        Automatically fetch all domains present in Cloudflare and bulk add them to Zoho with DNS
+                        configuration done for sending emails.
+                    </div>
+                </div>
+
+            </div>
+
+
+        </a>
+
+    </div>
+
+</body>
+
+{% endblock content %}

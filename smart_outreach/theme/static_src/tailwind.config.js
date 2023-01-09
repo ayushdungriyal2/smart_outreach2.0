@@ -41,13 +41,9 @@ module.exports = {
          */
         // '../../**/*.py'
     ],
-
     theme: {
-        fontSize: {
-            '4xl': '2rem !important',
-          }
+        extend: {},
     },
-
     plugins: [
         /**
          * '@tailwindcss/forms' is the forms plugin that provides a minimal styling

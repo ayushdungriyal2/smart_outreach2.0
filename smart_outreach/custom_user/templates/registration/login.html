@@ -1,79 +1,88 @@
-{% load tailwind_tags %}
-{% load static %}
+{% load static tailwind_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    {% tailwind_css %}
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/signin_css.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <title>Signin -Smartoutreach</title>
-    {% tailwind_css %}
-
 </head>
 
-<body class="bg-[#F0EEF7] flex justify-center items-center">
+<body class="bg-[#F0EEF7] flex justify-center items-center h-screen ">
     <!-- h-[91.1vh] -->
     <!-- w-[37.1vw] -->
     <!-- shadow-[0px 40.9451px 81.8901px -15.3544px rgba(85, 105, 135, 0.08)]  -->
-    <div class="bg-white px-[54px] w-[570px] rounded-2xl min-h-min flex-col mt-[13.2vh] ">
+    <div class="bg-white px-[45px] w-[470px] rounded-2xl flex-col ">
         <div class="flex items-center justify-center -mt-12">
-            <img class="h-[10.6vh] w-[5.6vw]" src="{% static '/images/smart_outreach.svg' %}" alt="Smartoutreach.net">
+            <img class=" w-[72px]" src="{% static '/images/smart_outreach.svg' %}" alt="">
         </div>
         <!-- text-[2.3vw] -->
         <!-- text-[2.375rem] -->
-        <div class="font-bold text-4xl mb-6 mt-[4.15vh] text-[#2A3342] flex items-center justify-center">
+        <div class="font-bold text-[2rem] mb-11 mt-[22px] text-[#2A3342] flex items-center justify-center">
             Sign in to your account
         </div>
-        <div>
-            <!-- text-[1.25rem] -->
-            <div class="font-medium ">
+
+        <!-- text-[1.25rem] -->
+        <form method="POST">
+            {% csrf_token %}
+            <p class='mb-4 text-red-600'>{{ error }}</p>
+            <div class="font-medium text-[#333F51] text-lg mb-1 ">
                 <label for="email">Email</label>
             </div>
             <div>
-                <input id="email" class="flex border-2 rounded-lg gap-[10px] py-3 px-[18px] w-[458px] " type="text"
+                <input type="email" name='email' required id="email"
+                    class="flex border-2 rounded-lg gap-[9px] py-4 px-3 w-[381px] " type="text"
                     placeholder="Enter your email">
             </div>
-        </div>
-        <div>
-            <div class="mt-2 leading-9 font-medium ">
-                <label for="password">Password</label>
-            </div>
+
             <div>
-                <input id="password" class="flex border-2 rounded-lg gap-[10px] py-3 px-[18px] w-[458px] " type="text"
-                    placeholder="Enter your password">
+                <div class="mt-6 font-medium text-[#333F51] text-lg mb-1">
+                    <label for="password">Password</label>
+                </div>
+                <div>
+                    <input name='password' type="password" required id="password"
+                        class="flex border-2 rounded-lg gap-[9px] py-4 px-3 w-[381px]" type="text"
+                        placeholder="Enter your password">
+                </div>
             </div>
-        </div>
-        <!-- text-[0.938rem] -->
-        <div class=" flex justify-between  mt-8 mb-6  font-medium">
-            <div>
-                <input type="checkbox" name="Remember_me" id="r_me" class="mt-1">
-                <label for="r_me">Remember me</label>
+            <!-- text-[0.938rem] -->
+            <div class=" flex text-[#333F51] justify-between text-2xs mt-4 mb-6  font-medium">
+                <div class="flex">
+                    <!-- <div class="mt-0.5 mr-1">
+                    <input type="checkbox" name="Remember_me" id="r_me">
+                </div>
+                <label for="r_me">Remember me</label> -->
+
+                </div>
+                <div>
+                    <a href="/forget-password" class="decoration-none text-[#2B2358] ">Forgot your password?</a>
+
+                </div>
 
             </div>
-            <div>
-                <a href="#" class="decoration-none">Forgot your password?</a>
 
-            </div>
+            <button
+                class=" w-full font-medium text-base mt-2 flex justify-center items-center text-white bg-[#2B2358] mx-auto rounded-lg py-3 px-5 gap-2">Sign
+                In</button>
+        </form>
 
-        </div>
-        <div
-            class=" mt-2 flex justify-center items-center text-white bg-[#2B2358] mx-auto border-2 rounded-lg py-3 px-6 gap-2 ">
-            <a href="#"> Sign In </a>
 
-        </div>
         <!-- text-[1.25rem] -->
-        <div class=" mt-8 mb-[9vh] flex justify-center items-center text-xl font-medium">
+        <div class=" mt-7 mb-[54px] flex justify-center items-center text-lg font-medium">
             <div>
-                <a href="#" class="decoration-none">Don't have an account? </a>
+                <a href="/sign-up" class="decoration-none text-[#333F51]">Don't have an account? </a>
             </div>
-            <div class="ml-1">
-                <a href="#">Sign up</a>
+            <div class=" ml-1 text-[#2B2358]">
+                <a href="/sign-up">Sign up</a>
 
             </div>
         </div>

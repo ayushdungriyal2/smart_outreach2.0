@@ -61,13 +61,21 @@ class CustomUser(AbstractUser):
     # cloudfare 
     cloudfare_email = models.CharField(max_length=250, blank=True, null=True, default='')
     cloudfare_auth_code = models.CharField(max_length=250, blank=True, null=True, default='')
+    
+    # smart lead
+
+    smart_lead_api_key =  models.CharField(max_length=250, blank=True, null=True,default='')
+     
+    # api calls 
 
     api_calls = models.IntegerField(blank=True, default=0, null=True)
-
+    
     # celery 
 
-    celery_task_id_list = models.TextField(max_length=25000, blank=True, null=True, default='')
-    
+    celery_task_id_add_domain_list = models.TextField(max_length=25000, blank=True, null=True, default='')
+    celery_task_id_create_user_zoho_list = models.TextField(max_length=25000, blank=True, null=True, default='')
+    celery_task_id_create_user_zoho_smartlead_list = models.TextField(max_length=25000, blank=True, null=True, default='')
+
     objects = UserManager()
 
     REQUIRED_FIELDS = ['name']
