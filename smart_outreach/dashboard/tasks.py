@@ -1,6 +1,9 @@
 import requests
 from celery import Celery
 from celery import shared_task
+from .main import main
+from .main import get_domains_zoho
+
 
 
 def get_domain_from_cloudfare(cloudfare_email, cloudfare_auth_code):
@@ -26,24 +29,9 @@ def get_domain_from_cloudfare(cloudfare_email, cloudfare_auth_code):
 # ----------
 
 def get_domain_from_zoho(refresh_token,client_id,client_secret,zoho_domain):
-    print('yes wsorking')
-    api_end_point = "http://13.234.59.175/api/automation/get_domains_zoho"
 
-    body_json = {
+    response = get_domains_zoho.get_domains_zoho(refresh_token,client_id,client_secret,zoho_domain)
 
-        "refresh_token" : f"{refresh_token}",
-        "client_id" : f"{client_id}",
-        "client_secret" : f"{client_secret}",
-        "zoho_domain" : f"{zoho_domain}",
-    }
-    response = requests.request("POST", api_end_point, json=body_json).json()
-
-    print(response)
-    print(response)
-    print(response)
-    print(response)
-    print(response)
-    print(response)
     domain_list = []
     for data in response['domain_name']:
             domain_list.append(data)
@@ -52,98 +40,120 @@ def get_domain_from_zoho(refresh_token,client_id,client_secret,zoho_domain):
 
 
 
+
+    # print('yes wsorking')
+    # api_end_point = "http://13.234.59.175/api/automation/get_domains_zoho"
+
+    # body_json = {
+
+    #     "refresh_token" : f"{refresh_token}",
+    #     "client_id" : f"{client_id}",
+    #     "client_secret" : f"{client_secret}",
+    #     "zoho_domain" : f"{zoho_domain}",
+    # }
+    # response = requests.request("POST", api_end_point, json=body_json).json()
+
+    # print(response)
+    # print(response)
+    # print(response)
+    # print(response)
+    # print(response)
+    # print(response)
+
+
+
 @shared_task()
 def add_domain_to_zoho_request(domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code):
-
-
-    # from .main import main
-
-    # main.zoho_cloudfare_dns_automation(domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code)
-
-    api_end_point = 'http://13.234.59.175/api/automation/dns_automation'
-
-    body_json = {
-        "domain_name" : f"{domain_name}",
-        "mail_1" : f"{mail_1}",
-        "mail_2" : f"{mail_2}",
-        "refresh_token" : f"{refresh_token}",
-        "client_id" : f"{client_id}",
-        "client_secret" : f"{client_secret}",
-        "zoho_domain" : f"{zoho_domain}",
-        "cloudfare_email" : f"{cloudfare_email}",
-        "cloudfare_auth_code" : f"{cloudfare_auth_code}"
-    }
-
-    response = requests.request("POST", api_end_point, json=body_json).json()
-    print('-------------')
-    print(domain_name)
-    print(domain_name)
-    print(domain_name)
-    print(domain_name)
-    print('-------------')
-    print(response)
-    print(response)
-    print(response)
-    print(response)
-    print(response)
-    print(response)
-
+    
+    main.zoho_cloudfare_dns_automation(domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code)
     return True
+
+
+
+
+
+
+    # api_end_point = 'http://13.234.59.175/api/automation/dns_automation'
+
+    # body_json = {
+    #     "domain_name" : f"{domain_name}",
+    #     "mail_1" : f"{mail_1}",
+    #     "mail_2" : f"{mail_2}",
+    #     "refresh_token" : f"{refresh_token}",
+    #     "client_id" : f"{client_id}",
+    #     "client_secret" : f"{client_secret}",
+    #     "zoho_domain" : f"{zoho_domain}",
+    #     "cloudfare_email" : f"{cloudfare_email}",
+    #     "cloudfare_auth_code" : f"{cloudfare_auth_code}"
+    # }
+
+    # response = requests.request("POST", api_end_point, json=body_json).json()
+
 
 # --------
 
 @shared_task
 def create_user_zoho(email,name,password,refresh_token,client_id,client_secret,zoho_domain):
-    api_end_point = "http://13.234.59.175/api/automation/create_user"
-    
-    body_json = {
-        
-        "email" : f'{email}',
-        "name" : f'{name}',
-        "password" : f'{password}',
-        "refresh_token" : f"{refresh_token}",
-        "client_id" : f"{client_id}",
-        "client_secret" : f"{client_secret}",
-        "zoho_domain" : f"{zoho_domain}",
-    }
-
-    response = requests.request("POST", api_end_point, json=body_json).json()
-
-    try:
-        response = requests.request("POST", api_end_point, json=body_json).json()
-        print(response)
-        
-    except:
-        pass
-
+    main.zoho_create_users(refresh_token, client_id, client_secret, email, name, password, zoho_domain)
     return True
+
+
+
+    # api_end_point = "http://13.234.59.175/api/automation/create_user"
+    
+    # body_json = {
+        
+    #     "email" : f'{email}',
+    #     "name" : f'{name}',
+    #     "password" : f'{password}',
+    #     "refresh_token" : f"{refresh_token}",
+    #     "client_id" : f"{client_id}",
+    #     "client_secret" : f"{client_secret}",
+    #     "zoho_domain" : f"{zoho_domain}",
+    # }
+
+    # response = requests.request("POST", api_end_point, json=body_json).json()
+
+    # try:
+    #     response = requests.request("POST", api_end_point, json=body_json).json()
+    #     print(response)
+        
+    # except:
+    #     pass
+
 
 
 # ------------
 
 @shared_task
 def create_user_zoho_smartlead(email,name,password,refresh_token,client_id,client_secret,zoho_domain,smart_lead_api_key):
-    api_end_point = "http://13.234.59.175/api/automation/create_user"
+
+    main.zoho_create_users(refresh_token, client_id, client_secret, email, name, password, zoho_domain)
+
+
+
+
+    # api_end_point = "http://13.234.59.175/api/automation/create_user"
     
-    body_json = {
+    # body_json = {
         
-        "email" : f'{email}',
-        "name" : f'{name}',
-        "password" : f'{password}',
-        "refresh_token" : f"{refresh_token}",
-        "client_id" : f"{client_id}",
-        "client_secret" : f"{client_secret}",
-        "zoho_domain" : f"{zoho_domain}",
-    }
+    #     "email" : f'{email}',
+    #     "name" : f'{name}',
+    #     "password" : f'{password}',
+    #     "refresh_token" : f"{refresh_token}",
+    #     "client_id" : f"{client_id}",
+    #     "client_secret" : f"{client_secret}",
+    #     "zoho_domain" : f"{zoho_domain}",
+    # }
 
-    response = requests.request("POST", api_end_point, json=body_json).json()
+    # response = requests.request("POST", api_end_point, json=body_json).json()
 
-    try:
-        response = requests.request("POST", api_end_point, json=body_json).json()
-        print(response)
+    # try:
+    #     response = requests.request("POST", api_end_point, json=body_json).json()
+    #     print(response)
         
-    except:
-        pass
+    # except:
+    #     pass
 
 
     # smart lead api call
