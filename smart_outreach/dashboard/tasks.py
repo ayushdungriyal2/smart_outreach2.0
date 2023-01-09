@@ -3,7 +3,6 @@ from celery import Celery
 from celery import shared_task
 
 
-@shared_task()
 def get_domain_from_cloudfare(cloudfare_email, cloudfare_auth_code):
     api_end_point = f"https://api.cloudflare.com/client/v4/zones"
 
@@ -55,6 +54,11 @@ def get_domain_from_zoho(refresh_token,client_id,client_secret,zoho_domain):
 
 @shared_task()
 def add_domain_to_zoho_request(domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code):
+
+
+    # from .main import main
+
+    # main.zoho_cloudfare_dns_automation(domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code)
 
     api_end_point = 'http://13.234.59.175/api/automation/dns_automation'
 
