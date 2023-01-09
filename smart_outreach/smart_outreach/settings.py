@@ -1,3 +1,4 @@
+import os
 """
 Django settings for smart_outreach project.
 
@@ -147,12 +148,13 @@ INTERNAL_IPS = [
 
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
-# static 
 
+# static root 
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = "static/"
 
 # celery settring 
-import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proj.settings')
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
@@ -167,3 +169,5 @@ CELERY_TIMEZONE = 'Asia/Kolkata'
 
 LOGIN_REDIRECT_URL = '/dashboard'
 LOGOUT_REDIRECT_URL = '/sign-in'
+
+
