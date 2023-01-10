@@ -69,6 +69,7 @@ def profile(request):
         client_secret = request.POST.get("client_secret")
         cloudfare_email = request.POST.get("cloudfare_email")
         cloudfare_auth_code = request.POST.get("cloudfare_auth_code")
+        smart_lead_api_key = request.POST.get("smart_lead_api_key") 
         user.name = name
         user.email = email
         user.phone = phone
@@ -79,6 +80,7 @@ def profile(request):
         user.client_secret = client_secret
         user.cloudfare_email = cloudfare_email
         user.cloudfare_auth_code = cloudfare_auth_code
+        user.smart_lead_api_key = smart_lead_api_key
         user.save()
         return redirect('dashboard')
 

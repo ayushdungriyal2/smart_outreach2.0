@@ -170,14 +170,14 @@ def create_user_zoho_smartlead(email,name,password,refresh_token,client_id,clien
         "smtp_port": 465,
         "imap_host": f"imap.{zoho_domain}",
         "imap_port": 993,
-        "max_email_per_day": 100,
+        "max_email_per_day": 50,
         "custom_tracking_url": "",
         "bcc": "",
         "signature": "",
-        "warmup_enabled": False,
-        "total_warmup_per_day": None, 
-        "daily_rampup": None, 
-        "reply_rate_percentage": None 
+        "warmup_enabled": True,
+        "total_warmup_per_day": 50, 
+        "daily_rampup": 5, 
+        "reply_rate_percentage": 30, 
     
     }
 
