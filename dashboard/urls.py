@@ -7,6 +7,6 @@ urlpatterns = [
     path('create_bulk_users_in_zoho', views.create_bulk_users_in_zoho),
     path('create_bulk_users_in_zoho_smartlead', views.create_bulk_users_in_zoho_smartlead),
     path('dashboard', views.dashboard, name='dashboard'),
-    path('', views.dashboard),
+    path('', views.dashboard, name='home'),
 
 ]

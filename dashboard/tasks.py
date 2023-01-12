@@ -5,6 +5,30 @@ from .main import main
 from .main import get_domains_zoho
 
 
+def verify_access_token(access_token,zoho_domain):
+
+    api_end_point = f'https://mail.{zoho_domain}/api/organization'
+    headers = {'Authorization': f'Zoho-oauthtoken {access_token}'}
+    response = requests.request(
+        "GET", api_end_point, headers=headers).json()
+
+    try:
+        if response['data']['errorCode'] == 'INVALID_OAUTHTOKEN':
+            print('validated access token - invalid')
+            return False
+        else:
+            return True
+
+
+    except:
+        print('validated access token - valid')
+        print('ZOHO.get_access_token.ENDS')        
+        return True
+
+
+
+
+
 
 def get_domain_from_cloudfare(cloudfare_email, cloudfare_auth_code):
     api_end_point = f"https://api.cloudflare.com/client/v4/zones"
@@ -63,100 +87,41 @@ def get_domain_from_zoho(refresh_token,client_id,client_secret,zoho_domain):
 
 
 @shared_task()
-def add_domain_to_zoho_request(domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code):
+def add_domain_to_zoho_request(access_token, domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code):
     
-    main.zoho_cloudfare_dns_automation(domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code)
+    main.zoho_cloudfare_dns_automation(access_token, domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code)
     return True
-
-
-
-
-
-
-    # api_end_point = 'http://13.234.59.175/api/automation/dns_automation'
-
-    # body_json = {
-    #     "domain_name" : f"{domain_name}",
-    #     "mail_1" : f"{mail_1}",
-    #     "mail_2" : f"{mail_2}",
-    #     "refresh_token" : f"{refresh_token}",
-    #     "client_id" : f"{client_id}",
-    #     "client_secret" : f"{client_secret}",
-    #     "zoho_domain" : f"{zoho_domain}",
-    #     "cloudfare_email" : f"{cloudfare_email}",
-    #     "cloudfare_auth_code" : f"{cloudfare_auth_code}"
-    # }
-
-    # response = requests.request("POST", api_end_point, json=body_json).json()
-
 
 # --------
 
 @shared_task
-def create_user_zoho(email,name,password,refresh_token,client_id,client_secret,zoho_domain):
-    main.zoho_create_users(refresh_token, client_id, client_secret, email, name, password, zoho_domain)
+def create_user_zoho(access_token, email,name,password,refresh_token,client_id,client_secret,zoho_domain):
+    print(email)
+    print(zoho_domain)
+    print(zoho_domain)
+    print(zoho_domain)
+    print(zoho_domain)
+    print(zoho_domain)
+    print(zoho_domain)
+    print(zoho_domain)
+    print(zoho_domain)
+    print(zoho_domain)
+    print(zoho_domain)
+    print(zoho_domain)
+    main.zoho_create_users(access_token, refresh_token, client_id, client_secret, email, name, password, zoho_domain)
     return True
-
-
-
-    # api_end_point = "http://13.234.59.175/api/automation/create_user"
-    
-    # body_json = {
-        
-    #     "email" : f'{email}',
-    #     "name" : f'{name}',
-    #     "password" : f'{password}',
-    #     "refresh_token" : f"{refresh_token}",
-    #     "client_id" : f"{client_id}",
-    #     "client_secret" : f"{client_secret}",
-    #     "zoho_domain" : f"{zoho_domain}",
-    # }
-
-    # response = requests.request("POST", api_end_point, json=body_json).json()
-
-    # try:
-    #     response = requests.request("POST", api_end_point, json=body_json).json()
-    #     print(response)
-        
-    # except:
-    #     pass
-
 
 
 # ------------
 
 @shared_task
-def create_user_zoho_smartlead(email,name,password,refresh_token,client_id,client_secret,zoho_domain,smart_lead_api_key):
-
-    main.zoho_create_users(refresh_token, client_id, client_secret, email, name, password, zoho_domain)
+def create_user_zoho_smartlead(access_token, email,name,password,refresh_token,client_id,client_secret,zoho_domain,smart_lead_api_key):
 
 
-
-
-    # api_end_point = "http://13.234.59.175/api/automation/create_user"
-    
-    # body_json = {
-        
-    #     "email" : f'{email}',
-    #     "name" : f'{name}',
-    #     "password" : f'{password}',
-    #     "refresh_token" : f"{refresh_token}",
-    #     "client_id" : f"{client_id}",
-    #     "client_secret" : f"{client_secret}",
-    #     "zoho_domain" : f"{zoho_domain}",
-    # }
-
-    # response = requests.request("POST", api_end_point, json=body_json).json()
-
-    # try:
-    #     response = requests.request("POST", api_end_point, json=body_json).json()
-    #     print(response)
-        
-    # except:
-    #     pass
-
+    main.zoho_create_users(access_token, refresh_token, client_id, client_secret, email, name, password, zoho_domain)
 
     # smart lead api call
+
 
     api_end_point = f"https://server.smartlead.ai/api/v1/email-accounts/save?api_key={smart_lead_api_key}"
 

@@ -53,6 +53,7 @@ class CustomUser(AbstractUser):
 
     # my modifications 
     # zoho 
+    access_token = models.CharField(max_length=250, blank=True, null=True,default='default12334')
     refresh_token = models.CharField(max_length=250, blank=True, null=True,default='')
     client_id = models.CharField(max_length=250, blank=True, null=True, default='')
     client_secret = models.CharField(max_length=250, blank=True, null=True, default='')

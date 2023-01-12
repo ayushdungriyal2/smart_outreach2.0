@@ -1,14 +1,19 @@
-def zoho_cloudfare_dns_automation(domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code):
+def get_access_token(refresh_token, client_id, client_secret, zoho_domain):
+    # refresh access token for zoho
+    from .zoho import get_access_token
+    access_token = get_access_token.get_access_token( refresh_token, client_id, client_secret, zoho_domain)
+    print('new access token generated')
+    return access_token
+
+
+
+def zoho_cloudfare_dns_automation(access_token, domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code):
 
     from .cloudfare import update_dmarc_record, get_zone_identifier, update_dns_records, update_dkim_records, list_dns_records, delete_zone_records as update_dmarc_record, get_zone_identifier, update_dns_records, update_dkim_records, list_dns_records, delete_zone_records
     from .zoho import get_dkim_id, verify_dkim_records, verify_spf_records, verify_mx_records, get_access_token, add_domain, verify_domain, get_dkim_key, enable_domain_hosting, get_org_id, delete_domain as get_dkim_id, verify_dkim_records, verify_spf_records, verify_mx_records, get_access_token, add_domain, verify_domain, get_dkim_key, enable_domain_hosting, get_org_id, delete_domain
     from .zoho import get_dkim_id as get_dkim_id
     from .cloudfare import update_dmarc_record as update_dmarc_record
     import time
-
-    # refresh access token for zoho
-    access_token = get_access_token.get_access_token(
-        refresh_token, client_id, client_secret, zoho_domain)
 
     # get zoid or org_id form zoho
 
@@ -100,16 +105,12 @@ def zoho_cloudfare_dns_automation(domain_name, mail_1, mail_2, refresh_token, cl
     # create new user in zoho and return zuid_accountid_list
 
 
-def zoho_create_users(refresh_token, client_id, client_secret, email, name, password, zoho_domain):
+def zoho_create_users(access_token, refresh_token, client_id, client_secret, email, name, password, zoho_domain):
 
     from .zoho_user import create_user, enable_imap_active_s as create_user, enable_imap_active_s
     from .zoho_user import create_user as create_user
     from .zoho import get_access_token as get_access_token
     from .zoho import get_org_id as get_org_id
-
-    # get access token
-    access_token = get_access_token.get_access_token(
-        refresh_token, client_id, client_secret, zoho_domain)
 
     # get org id
     org_id = get_org_id.get_org_id(access_token, zoho_domain)

@@ -23,7 +23,7 @@ def sign_up(request):
 
             print(current_user.name)
             login(request, user)
-            return redirect('/home')
+            return redirect('/dashboard')
     else:
         form = RegisterForm()
 
