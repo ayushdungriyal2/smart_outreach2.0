@@ -77,6 +77,10 @@ class CustomUser(AbstractUser):
     celery_task_id_create_user_zoho_list = models.TextField(max_length=25000, blank=True, null=True, default='')
     celery_task_id_create_user_zoho_smartlead_list = models.TextField(max_length=25000, blank=True, null=True, default='')
 
+    # verify user to login 
+
+    access_allowed = models.BooleanField(default=False)
+
     objects = UserManager()
 
     REQUIRED_FIELDS = ['name']
