@@ -96,18 +96,6 @@ def add_domain_to_zoho_request(access_token, domain_name, mail_1, mail_2, refres
 
 @shared_task
 def create_user_zoho(access_token, email,name,password,refresh_token,client_id,client_secret,zoho_domain):
-    print(email)
-    print(zoho_domain)
-    print(zoho_domain)
-    print(zoho_domain)
-    print(zoho_domain)
-    print(zoho_domain)
-    print(zoho_domain)
-    print(zoho_domain)
-    print(zoho_domain)
-    print(zoho_domain)
-    print(zoho_domain)
-    print(zoho_domain)
     main.zoho_create_users(access_token, refresh_token, client_id, client_secret, email, name, password, zoho_domain)
     return True
 
