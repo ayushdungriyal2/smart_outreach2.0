@@ -62,41 +62,23 @@ def get_domain_from_zoho(refresh_token,client_id,client_secret,zoho_domain):
 
     return domain_list
 
-
-
-
-    # print('yes wsorking')
-    # api_end_point = "http://13.234.59.175/api/automation/get_domains_zoho"
-
-    # body_json = {
-
-    #     "refresh_token" : f"{refresh_token}",
-    #     "client_id" : f"{client_id}",
-    #     "client_secret" : f"{client_secret}",
-    #     "zoho_domain" : f"{zoho_domain}",
-    # }
-    # response = requests.request("POST", api_end_point, json=body_json).json()
-
-    # print(response)
-    # print(response)
-    # print(response)
-    # print(response)
-    # print(response)
-    # print(response)
-
-
-
 @shared_task()
 def add_domain_to_zoho_request(access_token, domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code):
-    
-    main.zoho_cloudfare_dns_automation(access_token, domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code)
+    try:
+        main.zoho_cloudfare_dns_automation(access_token, domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code)
+    except:
+        pass
     return True
 
 # --------
 
 @shared_task
 def create_user_zoho(access_token, email,name,password,refresh_token,client_id,client_secret,zoho_domain):
-    main.zoho_create_users(access_token, refresh_token, client_id, client_secret, email, name, password, zoho_domain)
+
+    try:
+        main.zoho_create_users(access_token, refresh_token, client_id, client_secret, email, name, password, zoho_domain)
+    except:
+        pass
     return True
 
 
@@ -105,41 +87,44 @@ def create_user_zoho(access_token, email,name,password,refresh_token,client_id,c
 @shared_task
 def create_user_zoho_smartlead(access_token, email,name,password,refresh_token,client_id,client_secret,zoho_domain,smart_lead_api_key):
 
-
-    main.zoho_create_users(access_token, refresh_token, client_id, client_secret, email, name, password, zoho_domain)
-
-    # smart lead api call
-
-
-    api_end_point = f"https://server.smartlead.ai/api/v1/email-accounts/save?api_key={smart_lead_api_key}"
-
-    body_json = {
-
-        "from_name": f"{name}",
-        "from_email": f"{email}",
-        "user_name": f"{email}",
-        "password": f"{password}",
-        "smtp_host": f"smtp.{zoho_domain}",
-        "smtp_port": 465,
-        "imap_host": f"imap.{zoho_domain}",
-        "imap_port": 993,
-        "max_email_per_day": 50,
-        "custom_tracking_url": "",
-        "bcc": "",
-        "signature": "",
-        "warmup_enabled": True,
-        "total_warmup_per_day": 50, 
-        "daily_rampup": 5, 
-        "reply_rate_percentage": 30, 
-    
-    }
-
     try:
-        response = requests.request("POST", api_end_point, json=body_json).json()
-        print(response)
+
+        main.zoho_create_users(access_token, refresh_token, client_id, client_secret, email, name, password, zoho_domain)
+
+        # smart lead api call
+
+
+        api_end_point = f"https://server.smartlead.ai/api/v1/email-accounts/save?api_key={smart_lead_api_key}"
+
+        body_json = {
+
+            "from_name": f"{name}",
+            "from_email": f"{email}",
+            "user_name": f"{email}",
+            "password": f"{password}",
+            "smtp_host": f"smtp.{zoho_domain}",
+            "smtp_port": 465,
+            "imap_host": f"imap.{zoho_domain}",
+            "imap_port": 993,
+            "max_email_per_day": 50,
+            "custom_tracking_url": "",
+            "bcc": "",
+            "signature": "",
+            "warmup_enabled": True,
+            "total_warmup_per_day": 50, 
+            "daily_rampup": 5, 
+            "reply_rate_percentage": 30, 
         
+        }
+
+        try:
+            response = requests.request("POST", api_end_point, json=body_json).json()
+            print(response)
+            
+        except:
+            print(response)
+            pass
     except:
-        print(response)
         pass
 
     return True
