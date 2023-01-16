@@ -22,7 +22,7 @@ def add_domain_to_zoho_from_cloudfare(request):
         # check if acess allowed
         user = request.user
         if user.access_allowed == False:
-            return HttpResponse('fuck off take acces from ritik!')
+            return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
         # check if access allowed
 
         user = request.user
@@ -153,7 +153,7 @@ def create_bulk_users_in_zoho(request):
         # check if acess allowed
         user = request.user
         if user.access_allowed == False:
-            return HttpResponse('fuck off take acces from ritik!')
+            return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
         # check if access allowed
             
         # get user's data from database 
@@ -276,7 +276,7 @@ def create_bulk_users_in_zoho_smartlead(request):
         # check if acess allowed
         user = request.user
         if user.access_allowed == False:
-            return HttpResponse('fuck off take acces from ritik!')
+            return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
         # check if access allowed
         
         user = request.user
