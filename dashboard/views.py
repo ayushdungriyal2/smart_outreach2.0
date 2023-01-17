@@ -387,3 +387,27 @@ def create_bulk_users_in_zoho_smartlead(request):
     else:
         
         return redirect('sign-in')
+
+
+def auth(request):
+    return render(request,'dashboard/auth.html')
+
+
+import urllib
+from urllib import parse
+
+
+def zoho_auth(request, url):
+    if request.user.is_authenticated:
+        
+        url = request.get_full_path()
+
+        split =dict(parse.parse_qs(parse.urlsplit(url).query))
+
+        print(split['code'])
+        print(split['location'])
+
+        refresh_token = refresh_token 
+        current_user = request.user
+        current_user.refresh_token = refresh_token
+    return render(request,'dashboard/auth.html')
