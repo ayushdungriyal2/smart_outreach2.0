@@ -5,6 +5,23 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from .models import CustomUser
+import requests
+
+
+
+def ping_discord(email):
+    url = "https://eo5fh1p01duvox9.m.pipedream.net/"
+
+    body_json = {
+        "email": f"{email}",
+    }
+    
+    try:
+        response = requests.request(
+        "GET", url, json=body_json).json()
+
+    except:
+        pass
 
 
 def sign_up(request):
@@ -35,6 +52,7 @@ def sign_up(request):
 
             print(current_user.name)
             login(request, user)
+            ping_discord(email)
             return redirect('/dashboard')
     else:
 
