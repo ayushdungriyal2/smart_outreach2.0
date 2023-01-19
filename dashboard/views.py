@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .tasks import get_domain_from_cloudfare, add_domain_to_zoho_request, create_user_zoho, get_domain_from_zoho,create_user_zoho_smartlead, verify_access_token
+from .tasks import get_domain_from_cloudfare, add_domain_to_zoho_request, create_user_zoho, get_domain_from_zoho,create_user_zoho_smartlead, verify_access_token,get_clients_access_token
 import json
 from celery.result import AsyncResult
 from .main.main import get_access_token
@@ -18,12 +18,21 @@ def dashboard(request):
 def add_domain_to_zoho_from_cloudfare(request):
 
     if request.user.is_authenticated:
-        
+        user = request.user
+
         # check if acess allowed
         user = request.user
         if user.access_allowed == False:
             return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
         # check if access allowed
+
+        # check if zoho is connected 
+        if user.zoho_domain:
+            zoho_oauth = True
+        else:
+            return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
+        # check if zoho is connected ends 
+
 
         user = request.user
         refresh_token = user.refresh_token
@@ -31,10 +40,11 @@ def add_domain_to_zoho_from_cloudfare(request):
         client_id = user.client_id
         client_secret = user.client_secret
 
+
         # checking access token 
         access_token = user.access_token
+                
         if verify_access_token(access_token,zoho_domain) == False:
-                    
             # refresh access token for zoho
             access_token = get_access_token(refresh_token, client_id, client_secret, zoho_domain)
 
@@ -51,7 +61,7 @@ def add_domain_to_zoho_from_cloudfare(request):
 
         except:
             print('WRONG CLOUDFARE CREDS')
-            return render(request, 'dashboard/add-domain-to-zoho-from-cloudfare.html', context={"error": "please see if you have added proper cloudfare creds"})
+            return render(request, 'dashboard/add-domain-to-zoho-from-cloudfare.html', context={"cloudfareStatus": False})
 
         # get list of domain on cloudfare ends
 
@@ -97,8 +107,7 @@ def add_domain_to_zoho_from_cloudfare(request):
             # making celery task dictionary and running the task 
 
                 print(domain_name)
-                task_id = add_domain_to_zoho_request.delay(access_token, domain_name, mail_1, mail_2, refresh_token,
-                                                 client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code)
+                task_id = add_domain_to_zoho_request.delay(access_token, domain_name, mail_1, mail_2, zoho_domain, cloudfare_email, cloudfare_auth_code)
         
                 celery_task_id_dictionary['domain_name'].append(domain_name)
                 celery_task_id_dictionary['task_id'].append(task_id.task_id)
@@ -150,8 +159,15 @@ def add_domain_to_zoho_from_cloudfare(request):
 def create_bulk_users_in_zoho(request):
     if request.user.is_authenticated:
         
-        # check if acess allowed
         user = request.user
+        # check if zoho is connected 
+        if user.zoho_domain:
+            zoho_oauth = True
+        else:
+            return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
+        # check if zoho is connected ends 
+        
+        # check if acess allowed
         if user.access_allowed == False:
             return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
         # check if access allowed
@@ -273,8 +289,15 @@ def create_bulk_users_in_zoho_smartlead(request):
 
     if request.user.is_authenticated:
 
-        # check if acess allowed
         user = request.user
+        # check if zoho is connected 
+        if user.zoho_domain:
+            zoho_oauth = True
+        else:
+            return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
+        # check if zoho is connected ends 
+
+        # check if acess allowed
         if user.access_allowed == False:
             return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
         # check if access allowed
@@ -401,13 +424,42 @@ def zoho_auth(request, url):
     if request.user.is_authenticated:
         
         url = request.get_full_path()
-
         split =dict(parse.parse_qs(parse.urlsplit(url).query))
+        code = split['code'][0]
+        location = split['location'][0]
+        print(location)
+        
+        if location == 'us':
+            zoho_domain =  'zoho.com'
 
-        print(split['code'])
-        print(split['location'])
+        elif location == 'in':
+            zoho_domain = 'zoho.in'
 
-        refresh_token = refresh_token 
-        current_user = request.user
-        current_user.refresh_token = refresh_token
+        elif location == 'eu':
+            zoho_domain = 'zoho.eu'
+
+        elif location == 'au':
+            zoho_domain = 'zoho.com.au'
+
+        elif location == 'jp':
+            zoho_domain = 'zoho.jp'
+
+        user = request.user
+
+        user.zoho_domain = zoho_domain
+        user.save()
+        
+        refresh_token = get_clients_access_token(code,user,zoho_domain)
+        user.refresh_token = refresh_token
+        print('--')
+        print('--')
+        print('--')
+        print('--')
+        print(zoho_domain)
+        print(zoho_domain)
+        print(zoho_domain)
+        print(zoho_domain)
+        user.save()
+        return redirect('/')
+
     return render(request,'dashboard/auth.html')

@@ -7,6 +7,10 @@ from .main import get_domains_zoho
 
 def verify_access_token(access_token,zoho_domain):
 
+    print('verify acces token starts')
+    print(zoho_domain)
+    print(access_token)
+
     api_end_point = f'https://mail.{zoho_domain}/api/organization'
     headers = {'Authorization': f'Zoho-oauthtoken {access_token}'}
     response = requests.request(
@@ -63,11 +67,11 @@ def get_domain_from_zoho(refresh_token,client_id,client_secret,zoho_domain):
     return domain_list
 
 @shared_task()
-def add_domain_to_zoho_request(access_token, domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code):
-    try:
-        main.zoho_cloudfare_dns_automation(access_token, domain_name, mail_1, mail_2, refresh_token, client_id, client_secret, zoho_domain, cloudfare_email, cloudfare_auth_code)
-    except:
-        pass
+def add_domain_to_zoho_request(access_token, domain_name, mail_1, mail_2, zoho_domain, cloudfare_email, cloudfare_auth_code):
+    # try:
+    main.zoho_cloudfare_dns_automation(access_token, domain_name, mail_1, mail_2, zoho_domain, cloudfare_email, cloudfare_auth_code)
+    # except:
+        # pass
     return True
 
 # --------
@@ -128,3 +132,18 @@ def create_user_zoho_smartlead(access_token, email,name,password,refresh_token,c
         pass
 
     return True
+
+
+
+def get_clients_access_token(code,user,zoho_domain):
+    
+    api_end_point = f'https://accounts.{zoho_domain}/oauth/v2/token?code={code}&grant_type=authorization_code&client_id=1000.Z80WKB696P26IQF9OJ8N02WR37N0VY&client_secret=99191de808405a2f9bea51e79525fc0e1a3c7e73b9&redirect_uri=http://127.0.0.1:8000/zoho_auth/&scope=ZohoMail.partner.organization.CREATE,ZohoMail.partner.organization.READ,ZohoMail.partner.organization.UPDATE,ZohoMail.partner.organization.DELETE,ZohoMail.organization.accounts.CREATE,ZohoMail.organization.accounts.READ,ZohoMail.organization.accounts.UPDATE,ZohoMail.organization.accounts.DELETE,ZohoMail.organization.domains.CREATE,ZohoMail.organization.domains.READ,ZohoMail.organization.domains.UPDATE,ZohoMail.organization.domains.DELETE'
+    
+
+    response = requests.request("POST", api_end_point).json()
+    print(response)
+    print(response)
+    print(response)
+    print(response)
+    
+    return response['refresh_token']

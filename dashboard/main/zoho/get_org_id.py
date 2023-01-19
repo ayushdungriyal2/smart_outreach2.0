@@ -3,7 +3,8 @@ import requests
 
 def get_org_id(access_token,zoho_domain):
     print('ZOHO.get_org_id.STARTS')
-
+    print(zoho_domain)
+    print(access_token)
     # Define API End Point
 
     api_end_point = f'https://mail.{zoho_domain}/api/organization'

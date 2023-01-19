@@ -49,9 +49,15 @@
                 <!-- FORM STARTS -->
                 <form method="POST">
                     {% csrf_token %}
+                    
+
+                    {% if cloudfareStatus == False %}
+                    <div class="mb-6 mt-10 font-semibold text-2xl"> Please Connect Your Cloudfare At <a class="text-blue-800 underline" href="/profile">Profile</a> To Execute The Automation</div>
+                    {% else %}
 
                     <div class="mb-6 mt-10 font-semibold text-3xl"> Select Domains </div>
-
+                    
+                    {% endif %}
                     <div class="flex basis-full flex-wrap  text-[#2B2358] ">
 
                         {% for domain in domain_list%}

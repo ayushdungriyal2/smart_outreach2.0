@@ -20,5 +20,4 @@ def get_access_token(refresh_token,client_id,client_secret,zoho_domain):
     except:
         print('error')
         print(response)
-
         print('ZOHO.get_access_token.ENDS')

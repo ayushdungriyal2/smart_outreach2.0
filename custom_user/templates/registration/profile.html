@@ -15,20 +15,20 @@
         <!-- left -->
         <div class="tab">
             <div>
-                <button class="tablinks flex justify-start pl-6 py-3 w-44 text-xl font-medium rounded-lg mr-20 mb-1" type="submit"
-                    id="defaultOpen" onclick="openCity(event, 'Profile')">Profile</button>
+                <button class="tablinks flex justify-start pl-6 py-3 w-44 text-xl font-medium rounded-lg mr-20 mb-1"
+                    type="submit" id="defaultOpen" onclick="openCity(event, 'Profile')">Profile</button>
             </div>
             <div>
-                <button class="tablinks flex justify-start pl-6  py-3 w-44 text-xl font-medium rounded-lg mb-1 mr-20" type="submit"
-                    onclick="openCity(event, 'Cloudfare')">Cloudfare</button>
+                <button class="tablinks flex justify-start pl-6  py-3 w-44 text-xl font-medium rounded-lg mb-1 mr-20"
+                    type="submit" onclick="openCity(event, 'Cloudfare')">Cloudfare</button>
             </div>
             <div>
-                <button class="tablinks  flex justify-start pl-6 py-3 w-44 text-xl font-medium rounded-lg mb-1 mr-20" type="submit"
-                    onclick="openCity(event, 'Zoho')">Zoho</button>
+                <button class="tablinks  flex justify-start pl-6 py-3 w-44 text-xl font-medium rounded-lg mb-1 mr-20"
+                    type="submit" onclick="openCity(event, 'Zoho')">Zoho</button>
             </div>
             <div>
-                <button class="tablinks flex justify-start pl-6  py-3 w-44 text-xl font-medium rounded-lg mb-1 mr-20" type="submit"
-                    onclick="openCity(event, 'SmartLead')">SmartLead</button>
+                <button class="tablinks flex justify-start pl-6  py-3 w-44 text-xl font-medium rounded-lg mb-1 mr-20"
+                    type="submit" onclick="openCity(event, 'SmartLead')">SmartLead</button>
             </div>
         </div>
         <!-- vertical rule -->
@@ -112,38 +112,21 @@
                         </div>
                         <div class="w-80 bg-[#4F4589] h-0.5 mb-5 ">
                         </div>
-                        <div class="mb-5">
-                            <div>
-                                <label class="text-xl font-semibold mb-4" for="inp7">refresh_token</label>
-                            </div>
-                            <div>
-                                {{form.refresh_token}}
-                            </div>
-                        </div>
-                        <div class="mb-5">
-                            <div>
-                                <label class="text-xl font-semibold mb-4" for="inp8">zoho_domain</label>
-                            </div>
-                            <div>
-                                {{form.zoho_domain}}
-                            </div>
-                        </div>
-                        <div class="mb-5">
-                            <div>
-                                <label class="text-xl font-semibold mb-4" for="inp8">client_id</label>
-                            </div>
-                            <div>
-                                {{form.client_id}}
-                            </div>
-                        </div>
-                        <div class="mb-5">
-                            <div>
-                                <label class="text-xl font-semibold mb-4" for="inp8">client_secret</label>
-                            </div>
-                            <div>
-                                {{form.client_secret}}
-                            </div>
-                        </div>
+                        
+                        {% if zoho_oauth == False %}
+                        <a class="cursor-pointer"
+                            href="https://accounts.zoho.in/oauth/v2/auth?response_type=code&scope=ZohoMail.partner.organization.CREATE,ZohoMail.partner.organization.READ,ZohoMail.partner.organization.UPDATE,ZohoMail.partner.organization.DELETE,ZohoMail.organization.accounts.CREATE,ZohoMail.organization.accounts.READ,ZohoMail.organization.accounts.UPDATE,ZohoMail.organization.accounts.DELETE,ZohoMail.organization.domains.CREATE,ZohoMail.organization.domains.READ,ZohoMail.organization.domains.UPDATE,ZohoMail.organization.domains.DELETE&client_id=1000.Z80WKB696P26IQF9OJ8N02WR37N0VY&access_type=offline&redirect_uri=http://127.0.0.1:8000/zoho_auth/&prompt=consent">
+                            <img class=" mt-8  max-w-[410px]" src="{% static '/images/connect_zoho.png' %}" alt="tes">
+                        </a>
+                        {% elif  zoho_oauth == True %} 
+                        <p class="font-medium" >Zoho Account Is Already Connected !</p>
+                        <a class="cursor-pointer"
+                            href="https://accounts.zoho.in/oauth/v2/auth?response_type=code&scope=ZohoMail.partner.organization.CREATE,ZohoMail.partner.organization.READ,ZohoMail.partner.organization.UPDATE,ZohoMail.partner.organization.DELETE,ZohoMail.organization.accounts.CREATE,ZohoMail.organization.accounts.READ,ZohoMail.organization.accounts.UPDATE,ZohoMail.organization.accounts.DELETE,ZohoMail.organization.domains.CREATE,ZohoMail.organization.domains.READ,ZohoMail.organization.domains.UPDATE,ZohoMail.organization.domains.DELETE&client_id=1000.Z80WKB696P26IQF9OJ8N02WR37N0VY&access_type=offline&redirect_uri=http://127.0.0.1:8000/zoho_auth/&prompt=consent">
+                            <img class=" mt-4  max-w-[410px]" src="{% static '/images/reconnect_zoho.png' %}" alt="tes">
+                        </a>
+
+                        {% endif %}
+
 
                     </div>
                     <!-- smartlead  -->
@@ -164,8 +147,8 @@
                     </div>
                 </div>
                 <!-- save button -->
-                <div class="mt-10">
-                    <button class="w-[35rem] py-1 rounded-md bg-[#2B2358] text-white text-lg font-medium "
+                <div class=" save_button_hide mt-10">
+                    <button class=" w-[35rem] py-1 rounded-md bg-[#2B2358] text-white text-lg font-medium "
                         type="submit">Save changes</button>
                 </div>
             </div>
@@ -197,10 +180,18 @@
 
         // Show the current tab, and add an "active" class to the link that opened the tab
         document.getElementById(cityName).style.display = "initial";
+        document.querySelector(".save_button_hide").style.display = "initial";
         evt.currentTarget.className += " bg-[#2B2358]";
         evt.currentTarget.className += " text-white";
+
+        if (document.querySelector("#Zoho").style.display == "initial") {
+            console.log('working')
+            document.querySelector(".save_button_hide").style.display = "none";
+        }
     }
     document.getElementById("defaultOpen").click();
+
+
 </script>
 
 {% endblock content %}

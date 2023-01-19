@@ -55,8 +55,8 @@ class CustomUser(AbstractUser):
     # zoho 
     access_token = models.CharField(max_length=250, blank=True, null=True,default='default12334')
     refresh_token = models.CharField(max_length=250, blank=True, null=True,default='')
-    client_id = models.CharField(max_length=250, blank=True, null=True, default='')
-    client_secret = models.CharField(max_length=250, blank=True, null=True, default='')
+    client_id = models.CharField(max_length=250, default='1000.Z80WKB696P26IQF9OJ8N02WR37N0VY',)
+    client_secret = models.CharField(max_length=250, default='99191de808405a2f9bea51e79525fc0e1a3c7e73b9',)
     zoho_domain = models.CharField(max_length=250, blank=True, null=True, default='')
 
     # cloudfare 
