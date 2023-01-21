@@ -137,7 +137,7 @@ def create_user_zoho_smartlead(access_token, email,name,password,refresh_token,c
 
 def get_clients_access_token(code,user,zoho_domain):
     
-    api_end_point = f'https://accounts.{zoho_domain}/oauth/v2/token?code={code}&grant_type=authorization_code&client_id=1000.Z80WKB696P26IQF9OJ8N02WR37N0VY&client_secret=99191de808405a2f9bea51e79525fc0e1a3c7e73b9&redirect_uri=https://mvp.smartoutreach.net/zoho_auth/&scope=ZohoMail.partner.organization.CREATE,ZohoMail.partner.organization.READ,ZohoMail.partner.organization.UPDATE,ZohoMail.partner.organization.DELETE,ZohoMail.organization.accounts.CREATE,ZohoMail.organization.accounts.READ,ZohoMail.organization.accounts.UPDATE,ZohoMail.organization.accounts.DELETE,ZohoMail.organization.domains.CREATE,ZohoMail.organization.domains.READ,ZohoMail.organization.domains.UPDATE,ZohoMail.organization.domains.DELETE'
+    api_end_point = f'https://accounts.{zoho_domain}/oauth/v2/token?code={code}&grant_type=authorization_code&client_id=1000.Z80WKB696P26IQF9OJ8N02WR37N0VY&client_secret=99191de808405a2f9bea51e79525fc0e1a3c7e73b9&redirect_uri=https://beta.smartoutreach.net/zoho_auth/&scope=ZohoMail.partner.organization.CREATE,ZohoMail.partner.organization.READ,ZohoMail.partner.organization.UPDATE,ZohoMail.partner.organization.DELETE,ZohoMail.organization.accounts.CREATE,ZohoMail.organization.accounts.READ,ZohoMail.organization.accounts.UPDATE,ZohoMail.organization.accounts.DELETE,ZohoMail.organization.domains.CREATE,ZohoMail.organization.domains.READ,ZohoMail.organization.domains.UPDATE,ZohoMail.organization.domains.DELETE'
     
 
     response = requests.request("POST", api_end_point).json()
