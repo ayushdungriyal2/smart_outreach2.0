@@ -167,7 +167,17 @@ def create_bulk_users_in_zoho(request):
             return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
         # check if zoho is connected ends 
         
-        # check if acess allowed
+       
+	# check if smartlead api is added 
+
+	if user.smart_lead_api_key:
+	    pass
+
+	else:
+	    return HttpResponse('Please Connect Your Smartlead Account At <a href="/profile">Profile Page</a>')
+
+
+	 # check if acess allowed
         if user.access_allowed == False:
             return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
         # check if access allowed

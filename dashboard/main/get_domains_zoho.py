@@ -26,7 +26,7 @@ def get_domains_zoho(refresh_token,client_id,client_secret,zoho_domain):
     for data in response['data']['domainVO']:
 
         domain_name = data['domainName']
-        if data['dkimstatus'] == True:
+        if data['verificationStatus'] == True:
             domain_name_dic['domain_name'].append(domain_name)
 
     print(domain_name_dic)
