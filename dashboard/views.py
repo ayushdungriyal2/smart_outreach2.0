@@ -162,22 +162,13 @@ def create_bulk_users_in_zoho(request):
         user = request.user
         # check if zoho is connected 
         if user.zoho_domain:
-            zoho_oauth = True
+            pass
         else:
             return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
         # check if zoho is connected ends 
-        
-       
-	# check if smartlead api is added 
 
-	if user.smart_lead_api_key:
-	    pass
+        # check if acess allowed
 
-	else:
-	    return HttpResponse('Please Connect Your Smartlead Account At <a href="/profile">Profile Page</a>')
-
-
-	 # check if acess allowed
         if user.access_allowed == False:
             return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
         # check if access allowed
@@ -307,6 +298,14 @@ def create_bulk_users_in_zoho_smartlead(request):
             return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
         # check if zoho is connected ends 
 
+        # check if smartlead api is added 
+        if user.smart_lead_api_key:
+            print('key')
+            print(user.smart_lead_api_key)
+        else:
+            return HttpResponse('Please Connect Your Smartlead Account At <a href="/profile">Profile Page</a>')
+        # check if smartlead api is added
+        
         # check if acess allowed
         if user.access_allowed == False:
             return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
