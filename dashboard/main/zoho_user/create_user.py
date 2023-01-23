@@ -20,7 +20,7 @@ def create_user(access_token, org_id,email,name,password,zoho_domain):
 
     body_json = {
 
-        "role": "admin",
+        "role": "user",
         "primaryEmailAddress": f"{email}",
         "timeZone": "Asia/Kolkata",
         "language": "En",
