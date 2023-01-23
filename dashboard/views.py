@@ -1,3 +1,4 @@
+from celery import current_app
 from django.shortcuts import render, redirect, HttpResponse
 from .tasks import get_domain_from_cloudfare, add_domain_to_zoho_request, create_user_zoho, get_domain_from_zoho,create_user_zoho_smartlead, verify_access_token,get_clients_access_token
 import json
@@ -119,7 +120,8 @@ def add_domain_to_zoho_from_cloudfare(request):
 
                 import time
                 check_loop = 0
-                while result.status == 'STARTED':
+                result = AsyncResult(task_id.task_id, app=current_app)
+                while result.status != 'STARTED':
                     time.sleep(1)
                     check_loop += 1
                     if check_loop == 20:
@@ -133,7 +135,6 @@ def add_domain_to_zoho_from_cloudfare(request):
             print(celery_task_id_list)
 
             # storing active tasks 
-            from celery import current_app
             active_task_domain_name = []
 
             # running a loop to check if tasks are active
@@ -256,11 +257,14 @@ def create_bulk_users_in_zoho(request):
 
                 import time
                 check_loop = 0
-                while result.status == 'STARTED':
+                from celery import current_app
+
+                result = AsyncResult(task_id.task_id, app=current_app)
+                while result.status != 'STARTED':
                     time.sleep(1)
                     check_loop += 1
                     if check_loop == 20:
-                        break                
+                        break   
 
         try:
 
@@ -400,7 +404,9 @@ def create_bulk_users_in_zoho_smartlead(request):
 
                 import time
                 check_loop = 0
-                while result.status == 'STARTED':
+                from celery import current_app
+                result = AsyncResult(task_id.task_id, app=current_app)
+                while result.status != 'STARTED':
                     time.sleep(1)
                     check_loop += 1
                     if check_loop == 20:
