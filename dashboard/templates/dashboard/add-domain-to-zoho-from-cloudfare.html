@@ -16,6 +16,13 @@
         <div class="flex justify-center text-black ">
             <div class=" bg-white px-12 pt-14 w-10/12 border-2 rounded-2xl min-h-min mb-14">
                 {% if active_task_domain_name %}
+                <!-- refresh after every 30 seconds  -->
+                <script>
+                    window.setTimeout(function () {
+                        window.location.reload();
+                    }, 10000);
+                </script>
+                <!-- refresh after every 30 seconds  -->
                 <div id="domain_container">
                     <div class="mb-6 font-semibold text-3xl"> Ongoing Tasks </div>
 
@@ -49,14 +56,15 @@
                 <!-- FORM STARTS -->
                 <form method="POST">
                     {% csrf_token %}
-                    
+
 
                     {% if cloudfareStatus == False %}
-                    <div class="mb-6 mt-10 font-semibold text-2xl"> Please Connect Your Cloudfare At <a class="text-blue-800 underline" href="/profile">Profile</a> To Execute The Automation</div>
+                    <div class="mb-6 mt-10 font-semibold text-2xl"> Please Connect Your Cloudfare At <a
+                            class="text-blue-800 underline" href="/profile">Profile</a> To Execute The Automation</div>
                     {% else %}
 
                     <div class="mb-6 mt-10 font-semibold text-3xl"> Select Domains </div>
-                    
+
                     {% endif %}
                     <div class="flex basis-full flex-wrap  text-[#2B2358] ">
 
@@ -96,7 +104,7 @@
 
 
                     <input type="hidden" id="hidden_form" name="select_domain_list" required
-                    oninvalid="alert('please select at lease one domain')"/>
+                        oninvalid="alert('please select at lease one domain')" />
                     <button id="run_automation"
                         class=" mt-4 w-full flex justify-center items-center text-white bg-[#2B2358] rounded-lg py-3 mb-10">
                         <div class="pr-1 text-xl font-normal ">Run the automation 🚀</div>
@@ -176,8 +184,8 @@
         }
     </style>
     <!-- Start of HubSpot Embed Code -->
-  <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/23837511.js"></script>
-  <!-- End of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/23837511.js"></script>
+    <!-- End of HubSpot Embed Code -->
 </body>
 
 

@@ -16,6 +16,13 @@
         <div class="flex justify-center text-black ">
             <div class="bg-white px-12 pt-14 w-10/12 border-2 rounded-2xl min-h-min mb-14">
                 {% if active_task_domain_name %}
+                <!-- refresh after every 30 seconds  -->
+                <script>
+                    window.setTimeout(function () {
+                        window.location.reload();
+                    }, 10000);
+                </script>
+                <!-- refresh after every 30 seconds  -->
                 <div id="domain_container">
                     <div class="mb-6 font-semibold text-3xl"> Ongoing Tasks </div>
 
@@ -190,8 +197,9 @@
             </style>
         </div>
         <!-- Start of HubSpot Embed Code -->
-  <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/23837511.js"></script>
-  <!-- End of HubSpot Embed Code -->
+        <script type="text/javascript" id="hs-script-loader" async defer
+            src="//js-na1.hs-scripts.com/23837511.js"></script>
+        <!-- End of HubSpot Embed Code -->
 </body>
 
 

@@ -116,6 +116,14 @@ def add_domain_to_zoho_from_cloudfare(request):
                             
                 user.celery_task_id_add_domain_list = json.dumps(celery_task_id_dictionary)
                 user.save()
+
+                import time
+                check_loop = 0
+                while result.status == 'STARTED':
+                    time.sleep(1)
+                    check_loop += 1
+                    if check_loop == 20:
+                        break
         
         try:
 
@@ -136,7 +144,7 @@ def add_domain_to_zoho_from_cloudfare(request):
                 if result.status == 'STARTED':
                     active_task_domain_name.append(domain_name)
 
-                elif result.status == 'PENDING':
+                elif result.status == 'RECEIVED':
                     active_task_domain_name.append(domain_name)
 
                 else:
@@ -246,6 +254,14 @@ def create_bulk_users_in_zoho(request):
                 user.celery_task_id_create_user_zoho_list = json.dumps(celery_task_id_dictionary)
                 user.save()
 
+                import time
+                check_loop = 0
+                while result.status == 'STARTED':
+                    time.sleep(1)
+                    check_loop += 1
+                    if check_loop == 20:
+                        break                
+
         try:
 
             # fetching task status and task name from database 
@@ -265,7 +281,7 @@ def create_bulk_users_in_zoho(request):
                 if result.status == 'STARTED':
                     active_task_domain_name.append(domain_name)
 
-                elif result.status == 'PENDING':
+                elif result.status == 'RECEIVED':
                     active_task_domain_name.append(domain_name)
 
                 else:
@@ -382,6 +398,13 @@ def create_bulk_users_in_zoho_smartlead(request):
                 user.celery_task_id_create_user_zoho_smartlead_list = json.dumps(celery_task_id_dictionary)
                 user.save()
 
+                import time
+                check_loop = 0
+                while result.status == 'STARTED':
+                    time.sleep(1)
+                    check_loop += 1
+                    if check_loop == 20:
+                        break
         try:
 
             # fetching task status and task name from database 
@@ -401,7 +424,7 @@ def create_bulk_users_in_zoho_smartlead(request):
                 if result.status == 'STARTED':
                     active_task_domain_name.append(domain_name)
 
-                elif result.status == 'PENDING':
+                elif result.status == 'RECEIVED':
                     active_task_domain_name.append(domain_name)
 
                 else:
