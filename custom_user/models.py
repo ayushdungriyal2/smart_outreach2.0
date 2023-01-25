@@ -82,7 +82,7 @@ class CustomUser(AbstractUser):
 
     # verify user to login 
 
-    access_allowed = models.BooleanField(default=False)
+    access_allowed = models.BooleanField(default=True)
 
     objects = UserManager()
 

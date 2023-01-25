@@ -72,9 +72,6 @@ def sign_up(request):
         
         # send verification email 
 
-
-
-
         send_verification_email(email,auth_token)
 
         return HttpResponse(f'<h3>We have sent the verification link at<b> {email}</b>, click on it to verify your email & complete the signup process.</h4>')
@@ -213,7 +210,7 @@ def send_verification_email(email , token):
     message = f'Hi paste the link to verify your account https://beta.smartoutreach.net/verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
-    send_mail(subject, message , email_from ,recipient_list )
+    send_mail(subject, message ,"Smart Outreach <support@smartoutreach.net>" ,recipient_list )
 
 
 def password_reset_request(request):
