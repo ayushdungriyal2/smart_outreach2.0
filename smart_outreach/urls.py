@@ -4,7 +4,7 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("adminso/", admin.site.urls),
     path("", include('dashboard.urls') ),
     path("", include('custom_user.urls') ),
     # taildwin css 
