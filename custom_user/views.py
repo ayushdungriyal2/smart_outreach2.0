@@ -77,7 +77,7 @@ def sign_up(request):
 
         send_verification_email(email,auth_token)
 
-        return HttpResponse(f'<h3>We have sent the verification link at<b> {email}<b>, click on it to verify your email & complete the signup process.</h4>')
+        return HttpResponse(f'<h3>We have sent the verification link at<b> {email}</b>, click on it to verify your email & complete the signup process.</h4>')
 
     else:
 
