@@ -10,6 +10,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
 		rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/x-icon" href="{% static '/images/smart_outreach.svg' %}">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<style>
 		* {
@@ -28,15 +29,15 @@
 		</a>
 		<div class="flex justify-center item-center mr-[4.88vw]">
 			<div class="flex justify-center items-center mr-6">
-				<img src="./bell.svg" alt="">
+				<div class="mr-8 text-sm "><span class="font-semibold underline">{{user.api_calls}}/50</span><span class=" "> Free Credits Used</span>  </div>
 			</div>
-
+			<div class="">
 			<button onclick="toggle_nav()" id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider"
 				class="text-white bg-[#4F4589] px-3 py-1 rounded">{{user.name}} 🖐</button>
 
 			<!-- Dropdown menu -->
 			<div id="dropdownDivider"
-				class="outline-2 outline-[#4F4589] hidden absolute z-10 mt-10 bg-[#4F4589] divide-y divide-gray-100 rounded shadow w-44">
+				class="outline-2 outline-[#4F4589] hidden absolute mt-2 z-10 bg-[#4F4589] divide-y divide-gray-100 rounded shadow w-44">
 				<ul class="text-sm dark:text-gray-200" aria-labelledby="dropdownDividerButton">
 
 					<li>
@@ -53,6 +54,7 @@
 
 				</ul>
 			</div>
+		</div>
 
 
 		</div>

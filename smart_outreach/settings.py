@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-=+!+w+^n+u8&4_#%q^)1f8=nz(z#vh$yl_$)qa4pdog*l$y3m6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -21,6 +21,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    "custom_user",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -32,12 +33,11 @@ INSTALLED_APPS = [
     "theme",
     "django_browser_reload",
     "dashboard",
-    "custom_user",
 ]
 
 MIDDLEWARE = [
     # taildwin css 
-    # "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
     "django.middleware.security.SecurityMiddleware",
     # whitenoise 
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -162,3 +162,13 @@ CELERYD_TASK_SOFT_TIME_LIMIT = 360
 
 LOGIN_REDIRECT_URL = '/dashboard'
 LOGOUT_REDIRECT_URL = '/sign-in'
+
+# email creds 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.zoho.in'
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'support@smartoutreach.net'
+DEFAULT_FROM_EMAIL = 'support@smartoutreach.net'
+EMAIL_HOST_PASSWORD = 'Shain1@kinge.io'

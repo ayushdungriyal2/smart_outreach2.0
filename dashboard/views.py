@@ -5,10 +5,13 @@ import json
 from celery.result import AsyncResult
 from .main.main import get_access_token
 
+
 # Create your views here.
 
 def dashboard(request):
     if request.user.is_authenticated:
+        user = request.user
+        print(user.password)
         return render(request, 'dashboard/dashboard.html')
 
     else:
@@ -23,6 +26,9 @@ def add_domain_to_zoho_from_cloudfare(request):
 
         # check if acess allowed
         user = request.user
+        if user.api_calls >=50:
+            return HttpResponse('50/50 FREE CREDITS USED, Please Contact mail@rithikrajput.com to get more.')
+
         if user.access_allowed == False:
             return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
         # check if access allowed
@@ -177,7 +183,8 @@ def create_bulk_users_in_zoho(request):
         # check if zoho is connected ends 
 
         # check if acess allowed
-
+        if user.api_calls >=50:
+            return HttpResponse('50/50 FREE CREDITS USED, Please Contact mail@rithikrajput.com to get more.')
         if user.access_allowed == False:
             return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')
         # check if access allowed
@@ -325,7 +332,8 @@ def create_bulk_users_in_zoho_smartlead(request):
         else:
             return HttpResponse('Please Connect Your Smartlead Account At <a href="/profile">Profile Page</a>')
         # check if smartlead api is added
-        
+        if user.api_calls >=50:
+            return HttpResponse('50/50 FREE CREDITS USED, Please Contact mail@rithikrajput.com to get more.')
         # check if acess allowed
         if user.access_allowed == False:
             return HttpResponse('ACCESS DENIED, Please Contact mail@rithikrajput.com To Get Access.')

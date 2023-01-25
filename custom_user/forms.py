@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm,UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm,UserChangeForm, SetPasswordForm,PasswordResetForm
 from .models import CustomUser
 
 class RegisterForm(UserCreationForm):
@@ -30,6 +30,14 @@ class EditUserProfileForm(UserChangeForm):
         for fname, f in self.fields.items():
             f.widget.attrs['class'] = 'border-[#2B2358] text-[#2B2358] border-2 mt-2 rounded-md w-[35rem] py-1.5 pl-6 font-medium text-base'    
     
+class changePasswordForm(SetPasswordForm):
+    class Meta:
+        model = CustomUser
+        fields = ['new_password1', 'new_password2']
 
 
-
+class PasswordResetForm(PasswordResetForm):
+    model = CustomUser
+    fields = ['email']
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetForm, self).__init__(*args, **kwargs)

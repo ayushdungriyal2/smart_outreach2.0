@@ -70,7 +70,10 @@ class CustomUser(AbstractUser):
     # api calls 
 
     api_calls = models.IntegerField(blank=True, default=0, null=True)
-    
+    # api_calls_limit =  models.IntegerField(blank=True, default=0, null=True)
+    # left_over_api_calls = models.ForeignKey(api_calls_limit) -  models.ForeignKey(api_calls)
+
+
     # celery 
 
     celery_task_id_add_domain_list = models.TextField(max_length=25000, blank=True, null=True, default='')
@@ -84,3 +87,15 @@ class CustomUser(AbstractUser):
     objects = UserManager()
 
     REQUIRED_FIELDS = ['name']
+
+
+
+class tempUsers(models.Model):
+    name = models.CharField(max_length=250, blank=True, null=True)
+    email = models.CharField(max_length=250, blank=True, null=True)
+    password = models.CharField(max_length=250, blank=True, null=True)
+    auth_token = models.CharField(max_length=250, blank=True, null=True)
+    company_name = models.CharField(max_length=250, blank=True, null=True)
+    verified = models.BooleanField(default=False)
+    def __str__(self):
+        return self.email

@@ -1,12 +1,29 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, LoginForm, EditUserProfileForm
+from .forms import RegisterForm, LoginForm, EditUserProfileForm, changePasswordForm, PasswordResetForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from .models import CustomUser
+from .models import CustomUser, tempUsers
 import requests
+from django.core.mail import send_mail
+from django.conf import settings
+import uuid
 
+
+def is_it_disposable(email):
+
+    url = f"https://disposable.debounce.io/?email={email}"
+
+    response = requests.request("GET", url).json()
+
+    print(response)
+    
+    if response['disposable'] == 'true':
+        print('true')
+        return True
+    else:
+        return False
 
 
 def ping_discord(email):
@@ -40,20 +57,28 @@ def sign_up(request):
 
         except:
             pass
-        
-        user = CustomUser.objects.create_user(email, password)
-        
 
-        if user is not None:
-            current_user = CustomUser.objects.get(email=email)
-            current_user.name = name
-            current_user.company_name = company_name
-            current_user.save()
+        if is_it_disposable(email) == True:
+            error = 'Please use your work email'
+            return render(request, 'registration/sign-up.html', context = {"form": form,"error":error})
+        print(is_it_disposable(email))
 
-            print(current_user.name)
-            login(request, user)
-            ping_discord(email)
-            return redirect('/dashboard')
+        # --------------
+        # create a user in tempuser table  
+        auth_token = str(uuid.uuid4())
+        temp_user = tempUsers(name=name,email=email,password=password,company_name=company_name,auth_token=auth_token)
+        # save his details in temperoary table 
+        temp_user.save()
+        
+        # send verification email 
+
+
+
+
+        send_verification_email(email,auth_token)
+
+        return HttpResponse('WE HAVE SENT YOU AN EMAIL WITH VERIFICATION CODE,CHECK IT OUT AND CONTINUE OVER THERE FUKC OFF FOR NOW')
+
     else:
 
         return render(request, 'registration/sign-up.html', {"form": form})
@@ -78,9 +103,6 @@ def sign_in(request):
         
         return render(request, 'registration/login.html')
     
-
-
-
 
 def profile(request):
     
@@ -121,3 +143,86 @@ def profile(request):
         zoho_oauth = False
      
     return render(request, 'registration/profile.html',context = {"form":form, "zoho_oauth":zoho_oauth})
+
+
+def change_password(request):
+    if request.user.is_authenticated:
+    
+        if request.method == 'POST':
+            user = request.user
+            if request.method == 'POST':
+                new_password1 = request.POST.get('new_password1')
+                user.set_password(new_password1)
+                user.save()
+                return redirect('sign-in')
+
+            else:                
+                return render(request, 'registration/password_change.html', {'form': form})
+                
+        form = changePasswordForm
+        return render(request, 'registration/password_change.html', {'form': form})
+    
+    else:
+        return redirect('sign-in')
+
+    # ayush
+
+
+
+
+
+
+def verify(request , auth_token):
+    try:
+        temp_user = tempUsers.objects.filter(auth_token = auth_token).first()
+    
+        if temp_user.verified == True:
+                return redirect('sign-in')
+            
+        else:
+
+            email = temp_user.email 
+            password = temp_user.password
+            user = CustomUser.objects.create_user(email, password)
+            
+            user = CustomUser.objects.get(email=email)
+            user.name = temp_user.name
+            user.company_name = temp_user.company_name
+            user.save()
+            temp_user.verified = True
+            temp_user.auth_token = 'verified'
+            
+            temp_user.save()
+
+            print(user.name)
+            login(request, user)
+            ping_discord(email)
+            return redirect('/dashboard')
+        
+
+    except:
+        return HttpResponse('The Verification Link Has Expired, Try Creating Account Again')
+
+
+
+
+
+
+def send_verification_email(email , token):
+    subject = 'Your accounts need to be verified'
+    message = f'Hi paste the link to verify your account http://127.0.0.1:8000/verify/{token}'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = [email]
+    send_mail(subject, message , email_from ,recipient_list )
+
+
+def password_reset_request(request):
+    form = PasswordResetForm()
+    return render(
+        request=request, 
+        template_name="password_reset.html", 
+        context={"form": form}
+        )
+
+def passwordResetConfirm(request, uidb64, token):
+    return redirect("homepage")
