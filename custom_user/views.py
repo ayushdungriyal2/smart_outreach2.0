@@ -77,7 +77,7 @@ def sign_up(request):
 
         send_verification_email(email,auth_token)
 
-        return HttpResponse(f'We have sent the verification link at {email}, click on it to verify your email & complete the signup process.')
+        return HttpResponse(f'<h3>We have sent the verification link at<b> {email}<b>, click on it to verify your email & complete the signup process.</h4>')
 
     else:
 
@@ -210,7 +210,7 @@ def verify(request , auth_token):
 
 def send_verification_email(email , token):
     subject = 'Your accounts need to be verified'
-    message = f'Hi paste the link to verify your account http://127.0.0.1:8000/verify/{token}'
+    message = f'Hi paste the link to verify your account https://beta.smartoutreach.net/verify/{token}'
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [email]
     send_mail(subject, message , email_from ,recipient_list )
