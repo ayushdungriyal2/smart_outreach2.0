@@ -1,0 +1,43 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% tailwind_css %}
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/signin_css.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <title>Signin -Smartoutreach</title>
+</head>
+
+<body class="bg-[#F0EEF7] flex justify-center items-center h-screen ">
+
+    <div class="bg-white px-[45px] w-2/5 rounded-2xl flex-col w-auto align-middle">
+
+        <div class="flex items-center justify-center -mt-12">
+            <img class=" w-[72px]" src="{% static '/images/smart_outreach.svg' %}" alt="">
+        </div>
+
+        <div class="font-bold text-[2rem] mb-5 mt-[22px] text-[#2A3342] flex items-center justify-center">
+            {{heading}}
+        </div>
+
+        <div class=" text-center font-medium text-[#333F51] text-xl mb-1 flex items-center justify-center ">{{message}}.
+        </div>
+        <div class="flex items-center justify-center">
+        <button onclick="location.href='/profile'"
+            class=" max-w-sm mt-6 mb-6 w-full font-medium text-base flex justify-center items-center text-white bg-[#2B2358] rounded-lg py-3 px-5 gap-2">Go
+            To Profile</button>
+        </div>
+
+    </div>
+</body>
+
+</html>

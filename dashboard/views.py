@@ -27,6 +27,7 @@ def add_domain_to_zoho_from_cloudfare(request):
         # check if acess allowed
         user = request.user
         if user.api_calls >=50:
+            return render(request, '',context={'heading':'Heading','message':'message'})
             return HttpResponse('50/50 FREE CREDITS USED, Please Contact mail@rithikrajput.com to get more.')
 
         if user.access_allowed == False:
@@ -37,7 +38,9 @@ def add_domain_to_zoho_from_cloudfare(request):
         if user.zoho_domain:
             zoho_oauth = True
         else:
-            return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
+            return render(request, 'dashboard/message.html',context={'heading':'Zoho Not Connected','message':'Please Connect Your Cloudfare & Zoho At Profile'})
+            # return render(request, 'dashboard/message.html',context={'heading':'Zoho Not Connected','message':'Please Connect Your Cloudfare & Zoho At Profile'})
+
         # check if zoho is connected ends 
 
 
@@ -179,7 +182,8 @@ def create_bulk_users_in_zoho(request):
         if user.zoho_domain:
             pass
         else:
-            return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
+            return render(request, 'dashboard/message.html',context={'heading':'Zoho Not Connected','message':'Please Connect Your Cloudfare & Zoho At Profile'})
+            # return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
         # check if zoho is connected ends 
 
         # check if acess allowed
@@ -322,7 +326,10 @@ def create_bulk_users_in_zoho_smartlead(request):
         if user.zoho_domain:
             zoho_oauth = True
         else:
-            return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
+            return render(request, 'dashboard/message.html',context={'heading':'Zoho Not Connected','message':'Please Connect Your Cloudfare & Zoho At Profile'})
+            
+            # return HttpResponse('Please Connect Your Cloudfare & Zoho At <a href="/profile">Profile Page</a>')
+        
         # check if zoho is connected ends 
 
         # check if smartlead api is added 
