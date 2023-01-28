@@ -8,9 +8,7 @@ from .main import get_domains_zoho
 def verify_access_token(access_token,zoho_domain):
 
     print('verify acces token starts')
-    print(zoho_domain)
-    print(access_token)
-
+    
     api_end_point = f'https://mail.{zoho_domain}/api/organization'
     headers = {'Authorization': f'Zoho-oauthtoken {access_token}'}
     response = requests.request(
@@ -25,8 +23,7 @@ def verify_access_token(access_token,zoho_domain):
 
 
     except:
-        print('validated access token - valid')
-        print('ZOHO.get_access_token.ENDS')        
+        print('validated access token - valid')        
         return True
 
 
@@ -56,9 +53,9 @@ def get_domain_from_cloudfare(cloudfare_email, cloudfare_auth_code):
 
 # ----------
 
-def get_domain_from_zoho(refresh_token,client_id,client_secret,zoho_domain):
+def get_domain_from_zoho(access_token,client_id,client_secret,zoho_domain):
 
-    response = get_domains_zoho.get_domains_zoho(refresh_token,client_id,client_secret,zoho_domain)
+    response = get_domains_zoho.get_domains_zoho(access_token,client_id,client_secret,zoho_domain)
 
     domain_list = []
     for data in response['domain_name']:

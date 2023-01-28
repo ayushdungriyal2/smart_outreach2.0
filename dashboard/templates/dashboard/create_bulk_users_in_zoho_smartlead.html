@@ -16,7 +16,6 @@
         <div class="flex justify-center text-black ">
             <div class="bg-white px-12 pt-14 w-10/12 border-2 rounded-2xl min-h-min mb-14">
                 {% if active_task_domain_name %}
-
                 <!-- refresh after every 30 seconds  -->
                 <script>
                     window.setTimeout(function () {
@@ -42,7 +41,7 @@
 
                     </div>
                     <div class="flex mb-5 text-[#4F4589] font-normal text-sm justify-end">
-                        *This can take up to 10 minutes depending on ZOHO'& Smartlead's response.
+                        *This can take up to 5 minutes depending on ZOHO's response.
                     </div>
 
                     <hr class="text-[#2B2358]  ">
@@ -59,6 +58,10 @@
                     {% csrf_token %}
 
                     <div class="mb-6 mt-10 font-semibold text-3xl"> Select domain(s) </div>
+                    <div class="mb-7 font-normal text-lg ">
+                        Domains are being fetched from your zoho account. Note, if you are trying to add more than 5 users, make sure you have enough available licences
+                        in your zoho account. Also make sure you have provided correct api key at <a class="underline text-blue-600" href="/profile">Profile</a>. 
+                    </div>
 
                     <div class="flex basis-full flex-wrap  text-[#2B2358] ">
 
@@ -71,23 +74,23 @@
 
 
                     </div>
-                    <div class="flex mb-5  text-[#4F4589]  font-normal text-sm justify-end">
+                    <!-- <div class="flex mb-5  text-[#4F4589]  font-normal text-sm justify-end">
                         *Domains are fetched from Zoho
-                    </div>
+                    </div> -->
                     <hr class="text-[#2B2358]  ">
                     <div>
-                        <div class="mb-2 mt-10 font-semibold text-3xl"> Provide credentials for New Email(s)</div>
+                        <div class="mb-11 mt-10 font-semibold text-3xl"> Provide credentials for New Email(s)</div>
                     </div>
-                    <div class="text-[#4F4589] mb-11 font-normal text-base ">
-                        *You need at least one email to continue
-                    </div>
+                    <!-- <div class="mb-7 font-normal text-lg ">
+                        You need atlease one email to continue.
+                        </div> -->
                     <div class="mb-4">
                         <div class=" flex flex-col ">
-                            <label class="w-40 font-semibold mb-2 text-lg" for="username">Username</label>
+                            <label class="w-40 font-semibold mb-2 text-lg">Username</label>
                             <div class=" flex items-center">
 
                                 <input class="w-auto mb-5 text-[#2B2358] p-2 border-2 rounded-md border-[#2B2358]"
-                                    required type="text" name="username" id="username" placeholder="username"
+                                    required type="text" name="name" id="username" placeholder="username"
                                     pattern="[a-zA-Z][a-zA-Z0-9]{3,32}">
 
                                 <div class="ml-2 mb-5 font-medium text-lg">@yourdomain(s).com
@@ -121,7 +124,7 @@
                         oninvalid="alert('please select at lease one domain')" />
                     <button id="run_automation"
                         class=" mt-4 w-full flex justify-center items-center text-white bg-[#2B2358] rounded-lg py-3 mb-10">
-                        <div class="pr-1 text-xl font-normal ">Run the automation 🚀</div>
+                        <div class="pr-1 text-xl font-normal ">Run the automation!</div>
                     </button>
 
                 </form>

@@ -1,5 +1,5 @@
 def get_access_token(refresh_token, client_id, client_secret, zoho_domain):
-    # refresh access token for zoho
+    print('generating new access token')
     from .zoho import get_access_token
     access_token = get_access_token.get_access_token( refresh_token, client_id, client_secret, zoho_domain)
     print('new access token generated')

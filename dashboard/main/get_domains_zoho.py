@@ -1,14 +1,7 @@
-
-
-def get_domains_zoho(refresh_token,client_id,client_secret,zoho_domain):
+def get_domains_zoho(access_token,client_id,client_secret,zoho_domain):
     import requests
-    from .zoho import get_access_token
     from .zoho import get_org_id as get_org_id
     print('ZOHO.get_domains_zoho.STARTS')
-    
-    
-    access_token = get_access_token.get_access_token(
-        refresh_token, client_id, client_secret, zoho_domain)
 
     org_id = get_org_id.get_org_id(access_token, zoho_domain)
 

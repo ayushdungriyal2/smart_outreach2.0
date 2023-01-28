@@ -70,9 +70,7 @@ class CustomUser(AbstractUser):
     # api calls 
 
     api_calls = models.IntegerField(blank=True, default=0, null=True)
-    # api_calls_limit =  models.IntegerField(blank=True, default=0, null=True)
-    # left_over_api_calls = models.ForeignKey(api_calls_limit) -  models.ForeignKey(api_calls)
-
+    api_calls_limit =  models.IntegerField(blank=True, default=50, null=True)
 
     # celery 
 

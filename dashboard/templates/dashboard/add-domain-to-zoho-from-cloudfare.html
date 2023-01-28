@@ -57,15 +57,12 @@
                 <form method="POST">
                     {% csrf_token %}
 
+                    <div class="mb-2 mt-10 font-semibold text-3xl"> Select Domains </div>
+                    <div class="mb-7 font-normal text-lg ">
+                        Domains are fetched from your cloudflare. [ Cannot see any domain ? make sure you have provided
+                        correct cloudflare details at <a class="underline text-blue-600" href="/profile">Profile</a>]
+                    </div>
 
-                    {% if cloudfareStatus == False %}
-                    <div class="mb-6 mt-10 font-semibold text-2xl"> Please Connect Your Cloudfare At <a
-                            class="text-blue-800 underline" href="/profile">Profile</a> To Execute The Automation</div>
-                    {% else %}
-
-                    <div class="mb-6 mt-10 font-semibold text-3xl"> Select Domains </div>
-
-                    {% endif %}
                     <div class="flex basis-full flex-wrap  text-[#2B2358] ">
 
                         {% for domain in domain_list%}
@@ -77,15 +74,12 @@
 
 
                     </div>
-                    <div class="flex mb-5  text-[#4F4589]  font-normal text-sm justify-end">
-                        *Domains are fetched from your cloudflare
-                    </div>
-                    <hr class="text-[#2B2358]  ">
+                    <hr class="text-[#2B2358] mt-5 ">
                     <div>
                         <div class="mb-2 mt-10 font-semibold text-3xl"> Provide your Dmarc Emails </div>
                     </div>
-                    <div class="text-[#4F4589] mb-11 font-normal text-base ">
-                        *You need at least one email to continue
+                    <div class="mb-11 font-normal text-lg ">
+                        Plese provide atlease one email to continue.
                     </div>
                     <div class="mb-4">
                         <div>
@@ -107,7 +101,7 @@
                         oninvalid="alert('please select at lease one domain')" />
                     <button id="run_automation"
                         class=" mt-4 w-full flex justify-center items-center text-white bg-[#2B2358] rounded-lg py-3 mb-10">
-                        <div class="pr-1 text-xl font-normal ">Run the automation 🚀</div>
+                        <div class="pr-1 text-xl font-normal ">Run the automation !</div>
                     </button>
 
                 </form>
