@@ -230,3 +230,7 @@ def test(request):
     # return render(request, 'registration/email_success.html')
     email = 'email@gmailc.om'
     return render(request,'registration/email_success.html',{'email':email})
+
+def redirect_login(request):
+
+    return redirect('sign-in')

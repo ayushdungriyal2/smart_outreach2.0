@@ -10,6 +10,7 @@ admin.site.site_title = 'Smart Outreach'
 
 urlpatterns = [
     path('sign-up', views.sign_up, name='sign-up'),
+    path('accounts/login', views.redirect_login, name='sign-up'),
     path('verify/<auth_token>' , views.verify , name="verify"),
     path('sign-in', views.sign_in, name='sign-in'),
     path('profile', views.profile, name='profile'),

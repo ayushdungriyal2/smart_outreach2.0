@@ -78,7 +78,7 @@ def add_domain_to_zoho_from_cloudfare(request):
             domain_list = get_domain_from_cloudfare (cloudfare_email, cloudfare_auth_code)
 
         except:
-            pass
+            domain_list = []
 
         # get list of domain on cloudfare ends
 
@@ -332,6 +332,15 @@ def create_bulk_users_in_zoho_smartlead(request):
     if request.user.is_authenticated:
         
         user = request.user
+        # check if zoho is connected
+ 
+        if user.smart_lead_api_key:
+            pass
+        else:
+            return render(request, 'dashboard/message.html',context={'heading':'Smartlead Not Connected','message':'Please connect your Smartlead Account At Profile'})
+        
+        # check if zoho is connected ends
+
         # check if zoho is connected
  
         if user.zoho_domain:
