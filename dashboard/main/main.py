@@ -89,15 +89,16 @@ def zoho_cloudfare_dns_automation(access_token, domain_name, mail_1, mail_2, zoh
     verify_spf_records.verify_spf_records(
         domain_name, access_token, org_id, zoho_domain)
 
+    # update dmarc record Cloudfare
+
+    update_dmarc_record.update_dmarc_record(
+        mail_1, mail_2, zone_identifier, cloudfare_email, cloudfare_auth_code)
+    
     # verify dkim records in zoho
     dkim_attemp_no = 0
     verify_dkim_records.verify_dkim_records(
         domain_name, access_token, org_id, dkim_id, zoho_domain, dkim_attemp_no)
 
-    # update dmarc record Cloudfare
-
-    update_dmarc_record.update_dmarc_record(
-        mail_1, mail_2, zone_identifier, cloudfare_email, cloudfare_auth_code)
 
     print('zoho_cloudfare_dns_automation completed successfully!🎉')
     return True
