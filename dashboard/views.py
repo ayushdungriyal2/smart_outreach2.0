@@ -92,8 +92,8 @@ def add_domain_to_zoho_from_cloudfare(request):
             mail_2 = request.POST.get('email_2')
             select_domain_list = request.POST.get('select_domain_list')
 
-            if (mail_2 == None) or (mail_2== ''):
-                mail_2 == 'test@test.com' 
+            if (mail_2 == None) or (mail_2== '') or (mail_2 == ' '):
+                mail_2 = 'test@test.com' 
             
             # get data from user ends
             
