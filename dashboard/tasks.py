@@ -40,7 +40,11 @@ def get_domain_from_cloudfare(cloudfare_email, cloudfare_auth_code):
         "Authorization": f"Bearer {cloudfare_auth_code}"
     }
 
-    response = requests.request("GET", api_end_point, headers=headers).json()
+    params = {
+        "per_page":300,
+    }
+
+    response = requests.request("GET", api_end_point,params=params, headers=headers).json()
 
     domain_list = []
 
