@@ -90,7 +90,7 @@ def create_user_zoho(access_token, email,name,password,refresh_token,client_id,c
 # ------------
 
 @shared_task
-def create_user_zoho_smartlead(access_token, email,name,password,refresh_token,client_id,client_secret,zoho_domain,smart_lead_api_key):
+def create_user_zoho_smartlead(access_token, email,name,password,refresh_token,client_id,client_secret,zoho_domain,smart_lead_api_key,domain_name):
 
     try:
 
@@ -112,13 +112,13 @@ def create_user_zoho_smartlead(access_token, email,name,password,refresh_token,c
             "imap_host": f"imap.{zoho_domain}",
             "imap_port": 993,
             "max_email_per_day": 50,
-            "custom_tracking_url": "",
+            "custom_tracking_url": f"http://smart.{domain_name}",
             "bcc": "",
             "signature": "",
             "warmup_enabled": True,
             "total_warmup_per_day": 50, 
             "daily_rampup": 5, 
-            "reply_rate_percentage": 30, 
+            "reply_rate_percentage": 30,
         
         }
 

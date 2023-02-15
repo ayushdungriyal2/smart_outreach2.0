@@ -424,7 +424,7 @@ def create_bulk_users_in_zoho_smartlead(request):
                 # making celery task dictionary and running the task 
 
                 print(domain_name)
-                task_id = create_user_zoho_smartlead.delay(access_token,created_email,name,password,refresh_token,client_id,client_secret,zoho_domain,smart_lead_api_key)
+                task_id = create_user_zoho_smartlead.delay(access_token,created_email,name,password,refresh_token,client_id,client_secret,zoho_domain,smart_lead_api_key,domain_name)
                 celery_task_id_dictionary['domain_name'].append(created_email)
                 celery_task_id_dictionary['task_id'].append(task_id.task_id)
                 # saving domain name and task id in database 
